@@ -1,0 +1,41 @@
+.home-header {
+  margin-top: 20px;
+  &-btns {
+    display: flex;
+    align-items: center;
+    button:nth-child(1) {
+      margin-right: 25px;
+      background: #ff3b57;
+    }
+  }
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__logo {
+    display: block;
+    margin-top: 4px;
+  }
+  &__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-item {
+      margin-left: 40px;
+      &-link {
+        font-weight: 700;
+        font-size: 18px;
+        color: #fab023;
+        transition: all 0.2s ease;
+        &:hover,
+        &.active {
+          color: #fd3f54;
+        }
+        &:active {
+          color: #e6374c;
+        }
+      }
+    }
+  }
+}

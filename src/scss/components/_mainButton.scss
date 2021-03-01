@@ -1,0 +1,16 @@
+.main-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 35px;
+  font-weight: 700;
+  color: #fff;
+  font-size: 18px;
+  background: #fbb023;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}

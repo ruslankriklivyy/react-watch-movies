@@ -1,0 +1,33 @@
+.navigation {
+  margin-top: 65px;
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__item {
+      margin-left: 15px;
+      &-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 180px;
+        height: 50px;
+        font-weight: 600;
+        font-size: 21px;
+        color: #cdcdcd;
+        background: #171717;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        &:hover,
+        &.active {
+          color: #fff;
+          background: #fcb124;
+        }
+        &:active {
+          background: #c78203;
+        }
+      }
+    }
+  }
+}
