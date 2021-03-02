@@ -1,8 +1,16 @@
 .home-header {
   margin-top: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 80;
+  height: 120px;
   &-btns {
     display: flex;
     align-items: center;
+    position: relative;
     button:nth-child(1) {
       margin-right: 25px;
       background: #ff3b57;

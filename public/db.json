@@ -5,140 +5,160 @@
       "imageUrl": "https://www.vintagemovieposters.co.uk/wp-content/uploads/2019/11/IMG_2167-2.jpeg",
       "name": "Joker",
       "rating": 4.0,
-      "year": 2019
+      "year": 2019,
+      "genre": "drama"
     },
     {
       "id": 1,
       "imageUrl": "https://upload.wikimedia.org/wikipedia/ru/b/b4/Harry_Potter_and_the_Philosopher%27s_Stone_%E2%80%94_movie.jpg",
       "name": "Harry Potter",
       "rating": 4.5,
-      "year": 2001
+      "year": 2001,
+      "genre": "crime"
     },
     {
       "id": 2,
       "imageUrl": "https://m.media-amazon.com/images/M/MV5BMjA2NjU5MTg5OF5BMl5BanBnXkFtZTgwOTkyMzQxMDE@._V1_.jpg",
       "name": "Scream",
       "rating": 4.2,
-      "year": 1996
+      "year": 1996,
+      "genre": "crime"
     },
     {
       "id": 3,
       "imageUrl": "https://i.pinimg.com/originals/fc/95/ca/fc95ca81ca34fba083e38fa6406c87be.jpg",
       "name": "The Shining",
       "rating": 3.9,
-      "year": 1980
+      "year": 1980,
+      "genre": "drama"
     },
     {
       "id": 4,
       "imageUrl": "https://m.media-amazon.com/images/I/81pX-MlvGIL._AC_SL1500_.jpg",
       "name": "The Greatest Showman",
       "rating": 3.5,
-      "year": 2017
+      "year": 2017,
+      "genre": "comedy"
     },
     {
       "id": 5,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61jFTTf9RBL._AC_SL1230_.jpg",
       "name": "Avatar",
       "rating": 4.2,
-      "year": 2009
+      "year": 2009,
+      "genre": "comedy"
     },
     {
       "id": 6,
       "imageUrl": "https://i.etsystatic.com/13513569/r/il/879723/1116897704/il_570xN.1116897704_4zna.jpg",
       "name": "Jaws",
       "rating": 4.0,
-      "year": 1975
+      "year": 1975,
+      "genre": "documentary"
     },
     {
       "id": 7,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71MV9-vIANL._SL1000_.jpg",
       "name": "All The Kind Strangers",
       "rating": 3.5,
-      "year": 1991
+      "year": 1991,
+      "genre": "documentary"
     },
     {
       "id": 8,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91wOwwZI8JL._AC_SL1500_.jpg",
       "name": "The Hunger Games: Mockingjay Part 1",
       "rating": 4.2,
-      "year": 2013
+      "year": 2013,
+      "genre": "adventure"
     },
     {
       "id": 9,
       "imageUrl": "https://m.media-amazon.com/images/M/MV5BOTVhMzYxNjgtYzYwOC00MGIwLWJmZGEtMjgwMzgxMWUwNmRhXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg",
       "name": "Dora and The Lost City of Gold",
       "rating": 3.2,
-      "year": 2017
+      "year": 2017,
+      "genre": "crime"
     },
     {
       "id": 10,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/A1PaCX4oXjL._AC_SL1500_.jpg",
       "name": "Black Panther",
       "rating": 4.6,
-      "year": 2016
+      "year": 2016,
+      "genre": "crime"
     },
     {
       "id": 11,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61Fm%2BN%2BNncL._AC_SL1008_.jpg",
       "name": "Black Widow",
       "rating": 4.2,
-      "year": 2019
+      "year": 2019,
+      "genre": "crime"
     },
     {
       "id": 12,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91a9Ez60pmL._AC_SY741_.jpg",
       "name": "Dunkirk",
       "rating": 4.0,
-      "year": 2018
+      "year": 2018,
+      "genre": "drama"
     },
     {
       "id": 13,
       "imageUrl": "https://i.pinimg.com/originals/d1/2a/a6/d12aa686c0838fd94581bf14625b03fd.png",
       "name": "Aliens",
       "rating": 4.8,
-      "year": 1992
+      "year": 1992,
+      "genre": "drama"
     },
     {
       "id": 14,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91p8sSMXpkL._AC_SL1500_.jpg",
       "name": "Beaty and The Best",
       "rating": 4.2,
-      "year": 2017
+      "year": 2017,
+      "genre": "action"
     },
     {
       "id": 15,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71dTyPDP6RL._AC_SL1303_.jpg",
       "name": "Captain Marvel",
       "rating": 3.9,
-      "year": 2019
+      "year": 2019,
+      "genre": "action"
     },
     {
       "id": 16,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/A1CcbJfKqJL.jpg",
       "name": "Spider-Man Homecoming",
       "rating": 4.2,
-      "year": 2019
+      "year": 2019,
+      "genre": "drama"
     },
     {
       "id": 17,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/A1JOaV3B6fL._AC_SL1500_.jpg",
       "name": "Moana",
       "rating": 4.8,
-      "year": 2015
+      "year": 2015,
+      "genre": "drama"
     },
     {
       "id": 18,
       "imageUrl": "https://m.media-amazon.com/images/I/617dF1MDxIL._AC_SY679_.jpg",
       "name": "Guardians of The Galaxy",
       "rating": 4.1,
-      "year": 2016
+      "year": 2016,
+      "genre": "action"
     },
     {
       "id": 19,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81eu-r8v7nL._AC_SL1346_.jpg",
       "name": "How to Train Your Dragon: The Hidden World",
       "rating": 4.6,
-      "year": 2016
+      "year": 2016,
+      "genre": "comedy"
     }
   ]
 }

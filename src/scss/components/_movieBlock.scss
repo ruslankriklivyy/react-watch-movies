@@ -2,14 +2,17 @@
   margin-top: 90px;
   &-block {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    transition: all 0.3s ease;
     &__item {
       width: 18%;
       height: 380px;
+      margin-right: 20px;
       cursor: pointer;
       margin-bottom: 45px;
+
       &-img {
         img {
           display: block;

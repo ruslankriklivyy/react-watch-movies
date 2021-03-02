@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 import logoPng from '../assets/images/logo.png';
 import { Button } from '.';
 
-const HeaderHome = ({ items }) => {
+const HeaderHome = ({ items, onSetVisibleLogin, onSetVisibleRegistration }) => {
   const [activeItem, setActiveItem] = React.useState(0);
 
   const onSetActiveItem = (index, e) => {
-    e.preventDefault();
     setActiveItem(index);
   };
 
@@ -37,8 +36,8 @@ const HeaderHome = ({ items }) => {
             </ul>
           </div>
           <div className="home-header-btns">
-            <Button>Sign Up</Button>
-            <Button>Login</Button>
+            <Button onClick={() => onSetVisibleRegistration()}>Sign Up</Button>
+            <Button onClick={() => onSetVisibleLogin()}>Login</Button>
           </div>
         </div>
       </div>
