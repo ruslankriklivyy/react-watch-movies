@@ -1,17 +1,20 @@
 const initialState = {
-  year: null,
+  sortType: {
+    type: 'year',
+    order: 'desc',
+  },
   genre: null,
 };
 
-const FILTER_BY_YEAR = 'FILTER_BY_YEAR';
+const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 
 const filters = (state = initialState, action) => {
   switch (action.type) {
-    case FILTER_BY_YEAR:
+    case FILTER_BY_SORT_TYPE:
       return {
         ...state,
-        year: action.payload,
+        sortType: action.payload,
       };
 
     case FILTER_BY_GENRE:

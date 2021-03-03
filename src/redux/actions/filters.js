@@ -1,9 +1,9 @@
-const FILTER_BY_YEAR = 'FILTER_BY_YEAR';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
+const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 
-export const filterByYear = (year) => ({
-  type: FILTER_BY_YEAR,
-  payload: year,
+export const filterBySortType = (obj) => ({
+  type: FILTER_BY_SORT_TYPE,
+  payload: obj,
 });
 
 export const filterByGenre = (genre) => ({

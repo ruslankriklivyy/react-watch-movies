@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import starSvg from '../assets/images/star.svg';
 
@@ -7,7 +8,7 @@ const MovieBlock = ({ items }) => {
     <div className="movies-block">
       {items &&
         items.map(({ name, id, imageUrl, rating, year }) => (
-          <div key={id} className="movies-block__item">
+          <Link to={`/watchmovies/:${id}`} key={id} className="movies-block__item">
             <div className="movies-block__item-img">
               <img src={imageUrl} alt="movies img" />
             </div>
@@ -23,7 +24,7 @@ const MovieBlock = ({ items }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );

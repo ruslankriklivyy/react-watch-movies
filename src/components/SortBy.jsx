@@ -3,12 +3,13 @@ import classNames from 'classnames';
 
 import starSvg from '../assets/images/star.svg';
 
-const SortBy = ({ items }) => {
+const SortBy = ({ items, onSelectFilter }) => {
   const [activeItem, setActiveItem] = React.useState(0);
 
   const onSetActiveItem = (index, e) => {
     e.preventDefault();
     setActiveItem(index);
+    onSelectFilter(index);
   };
 
   return (
@@ -19,14 +20,14 @@ const SortBy = ({ items }) => {
             <h4 className="sortby__title">Sort by:</h4>
             <ul className="sortby-menu">
               {items.map((item, index) => (
-                <li key={`${item}-${index}`} className="sortby-menu__item">
+                <li key={`${item.name}-${index}`} className="sortby-menu__item">
                   <a
                     href="/"
                     onClick={(e) => onSetActiveItem(index, e)}
                     className={classNames('sortby-menu__item-link', {
                       active: index === activeItem,
                     })}>
-                    {item}
+                    {item.name}
                   </a>
                 </li>
               ))}

@@ -2,32 +2,45 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Header, Menu, SortBy, MovieBlock } from '../components';
-import { getMovies } from '../redux/actions/movies';
-import { filterByGenre } from '../redux/actions/filters';
+import { getMovies, getMoviesBySearch } from '../redux/actions/movies';
+import { filterByGenre, filterBySortType } from '../redux/actions/filters';
 
 const genreNames = ['Action', 'Adventure', 'Comedy', 'Drama', 'Documentary', 'Crime'];
-const sortBy = ['Latest', 'Year', 'A-Z'];
+const sortBy = [
+  { name: 'Latest', type: 'year', order: 'desc' },
+  { name: 'Rating', type: 'rating', order: 'desc' },
+  { name: 'A-Z', type: 'name', order: 'asc' },
+];
 
 const Movies = () => {
   const dispatch = useDispatch();
   const movies = useSelector(({ movies }) => movies.items);
-  // const year = useSelector(({ filters }) => filters.year);
-  const genre = useSelector(({ filters }) => filters.genre);
+  const searchValue = useSelector(({ movies }) => movies.searchValue);
+  const { genre, sortType } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
-    dispatch(getMovies(genre));
-  }, [genre]);
+    dispatch(getMovies(genre, sortType, searchValue));
+  }, [genre, sortType, searchValue, dispatch]);
+
+  const onSearchMovie = (text) => {
+    dispatch(getMoviesBySearch(text));
+  };
 
   const onSelectFilterGenre = (index) => {
     const genre = index !== null ? genreNames[index].toLowerCase() : '';
     dispatch(filterByGenre(genre));
   };
 
+  const onSelectFilterByType = (index) => {
+    const sortType = index !== null ? sortBy[index] : '';
+    dispatch(filterBySortType(sortType));
+  };
+
   return (
     <div className="Movies">
-      <Header />
+      <Header onSearch={onSearchMovie} />
       <Menu onSelectGenre={onSelectFilterGenre} items={genreNames} />
-      <SortBy items={sortBy} />
+      <SortBy onSelectFilter={onSelectFilterByType} items={sortBy} />
       <div className="movies">
         <div className="container">
           <MovieBlock items={movies} />
