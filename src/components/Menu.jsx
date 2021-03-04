@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const Menu = ({ items, onSelectGenre }) => {
+const Menu = React.memo(function Menu({ items, onSelectGenre }) {
   const [activeItem, setActiveItem] = React.useState(null);
 
   const onSetActiveItem = (index, e) => {
@@ -40,6 +40,6 @@ const Menu = ({ items, onSelectGenre }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Menu;

@@ -12,10 +12,9 @@ const sortBy = [
   { name: 'A-Z', type: 'name', order: 'asc' },
 ];
 
-const Movies = () => {
+const Movies = ({ onSetMovieId }) => {
   const dispatch = useDispatch();
-  const movies = useSelector(({ movies }) => movies.items);
-  const searchValue = useSelector(({ movies }) => movies.searchValue);
+  const { items, searchValue } = useSelector(({ movies }) => movies);
   const { genre, sortType } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
@@ -31,10 +30,13 @@ const Movies = () => {
     dispatch(filterByGenre(genre));
   };
 
-  const onSelectFilterByType = (index) => {
-    const sortType = index !== null ? sortBy[index] : '';
-    dispatch(filterBySortType(sortType));
-  };
+  const onSelectFilterByType = React.useCallback(
+    (index) => {
+      const sortType = index !== null ? sortBy[index] : '';
+      dispatch(filterBySortType(sortType));
+    },
+    [dispatch],
+  );
 
   return (
     <div className="Movies">
@@ -43,7 +45,7 @@ const Movies = () => {
       <SortBy onSelectFilter={onSelectFilterByType} items={sortBy} />
       <div className="movies">
         <div className="container">
-          <MovieBlock items={movies} />
+          <MovieBlock setId={onSetMovieId} items={items} />
         </div>
       </div>
     </div>

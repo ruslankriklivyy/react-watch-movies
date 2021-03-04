@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 
 import starSvg from '../assets/images/star.svg';
 
-const MovieBlock = ({ items }) => {
+const MovieBlock = ({ items, setId }) => {
   return (
     <div className="movies-block">
       {items &&
         items.map(({ name, id, imageUrl, rating, year }) => (
-          <Link to={`/watchmovies/:${id}`} key={id} className="movies-block__item">
+          <Link
+            to={`/watchmovies/${id}-${name.split(' ').join('').toLowerCase()}`}
+            onClick={() => setId(id)}
+            key={id}
+            className="movies-block__item">
             <div className="movies-block__item-img">
               <img src={imageUrl} alt="movies img" />
             </div>

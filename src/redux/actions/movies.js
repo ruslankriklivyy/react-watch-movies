@@ -3,6 +3,7 @@ import axios from 'axios';
 const SET_MOVIES = 'SET_MOVIES';
 const SEARCH_MOVIES = 'SEARCH_MOVIES';
 const SET_IS_LOADING = 'SET_IS_LOADING';
+const SET_MOVIE_ID = 'SET_MOVIE_ID';
 
 export const getMovies = (genre, sortType, searchValue) => (dispatch) => {
   dispatch(setIsLoading(true));
@@ -24,6 +25,11 @@ export const getMovies = (genre, sortType, searchValue) => (dispatch) => {
 export const getMoviesBySearch = (text) => ({
   type: SEARCH_MOVIES,
   payload: text,
+});
+
+export const setMovieId = (id) => ({
+  type: SET_MOVIE_ID,
+  payload: id,
 });
 
 const setIsLoading = (isLoading) => ({
