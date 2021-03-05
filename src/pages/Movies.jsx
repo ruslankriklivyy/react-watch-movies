@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Header, Menu, SortBy, MovieBlock } from '../components';
-import { getMovies, getMoviesBySearch } from '../redux/actions/movies';
+import { getMovies, getMoviesBySearch, getGenres } from '../redux/actions/movies';
 import { filterByGenre, filterBySortType } from '../redux/actions/filters';
 
 const genreNames = ['Action', 'Adventure', 'Comedy', 'Drama', 'Documentary', 'Crime'];
@@ -12,14 +12,18 @@ const sortBy = [
   { name: 'A-Z', type: 'name', order: 'asc' },
 ];
 
-const Movies = ({ onSetMovieId }) => {
+const Movies = ({ onSetMovieId, movieId }) => {
   const dispatch = useDispatch();
-  const { items, searchValue } = useSelector(({ movies }) => movies);
-  const { genre, sortType } = useSelector(({ filters }) => filters);
+  const { items, genre, searchValue } = useSelector(({ movies }) => movies);
+  const { sortType } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
-    dispatch(getMovies(genre, sortType, searchValue));
-  }, [genre, sortType, searchValue, dispatch]);
+    dispatch(getMovies(genre, sortType, searchValue, movieId));
+  }, [genre, sortType, searchValue, movieId, dispatch]);
+
+  React.useEffect(() => {
+    dispatch(getGenres());
+  }, [dispatch]);
 
   const onSearchMovie = (text) => {
     dispatch(getMoviesBySearch(text));

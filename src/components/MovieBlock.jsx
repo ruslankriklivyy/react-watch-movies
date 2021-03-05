@@ -7,24 +7,24 @@ const MovieBlock = ({ items, setId }) => {
   return (
     <div className="movies-block">
       {items &&
-        items.map(({ name, id, imageUrl, rating, year }) => (
+        items.map(({ title, id, popularity, poster_path, release_date }) => (
           <Link
-            to={`/watchmovies/${id}-${name.split(' ').join('').toLowerCase()}`}
+            to={`/watchmovies/${id}-${title.split(' ').join('').toLowerCase()}`}
             onClick={() => setId(id)}
             key={id}
             className="movies-block__item">
             <div className="movies-block__item-img">
-              <img src={imageUrl} alt="movies img" />
+              <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="movies img" />
             </div>
             <div className="movies-block__item-info">
               <div className="movies-block__item-info-top">
-                <h4>{name}</h4>
+                <h4>{title}</h4>
               </div>
               <div className="movies-block__item-info-bottom">
-                <span>{year}</span>
+                <span>{release_date}</span>
                 <div className="movies-block__item-info-rating">
                   <img src={starSvg} alt="star svg" />
-                  <b>{rating}</b>
+                  <b>{popularity.toFixed(0)}</b>
                 </div>
               </div>
             </div>

@@ -4,30 +4,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
 import { Home, Movies, MovieItem } from './pages';
-import { setMovieId } from './redux/actions/movies';
+import { setMovieId, setChosenItem } from './redux/actions/movies';
 
 function App() {
   const dispatch = useDispatch();
-  const { items, movieId } = useSelector(({ movies }) => movies);
-  const movieItem = movieId && items.filter((item) => item.id === movieId);
+  const { items, genres, chosenItem, movieId } = useSelector(({ movies }) => movies);
 
-  const onSetMovieId = React.useCallback(
-    (id) => {
-      dispatch(setMovieId(id));
-    },
-    [dispatch],
-  );
+  const onSetMovieId = (id) => {
+    const item = items.filter((obj) => obj.id === id);
+    dispatch(setChosenItem(item));
+    dispatch(setMovieId(id));
+  };
+
+  React.useEffect(() => {
+    const localStorageRef = localStorage.getItem('chosenItem');
+    const localStorageIdRef = localStorage.getItem('chosenItemId');
+    if (localStorageRef) {
+      dispatch(setChosenItem(JSON.parse(localStorageRef)));
+      dispatch(setMovieId(JSON.parse(localStorageIdRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('chosenItem', JSON.stringify(chosenItem));
+    localStorage.setItem('chosenItemId', JSON.stringify(movieId));
+  }, [chosenItem, movieId]);
 
   return (
     <div className="App">
       <Route exact path="/" component={Home} />
-      <Route exact path="/watchmovies" render={() => <Movies onSetMovieId={onSetMovieId} />} />
       <Route
         exact
+        path="/watchmovies"
+        render={() => <Movies movieId={movieId} onSetMovieId={onSetMovieId} />}
+      />
+      <Route
         path={`/watchmovies/${movieId}-${
-          (movieItem !== null) | undefined && movieItem[0].name.split(' ').join('').toLowerCase()
+          movieId && chosenItem.length > 0 && chosenItem[0].title.split(' ').join('').toLowerCase()
         }`}
-        render={() => <MovieItem {...movieItem[0]} />}
+        render={() => <MovieItem genre={genres} {...chosenItem[0]} />}
       />
     </div>
   );
