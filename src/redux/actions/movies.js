@@ -27,8 +27,9 @@ export const getMovies = (genre, sortType, searchValue, movieId) => async (dispa
   //   .finally(() => dispatch(setIsLoading(true)));
 };
 
-export const getGenres = () => async (dispatch) => {
+export const getGenres = (chosenItem) => async (dispatch) => {
   const genres = await filmsAPI.getGenresFilms();
+
   dispatch(getFilmsByGenres(genres));
 };
 
@@ -37,9 +38,9 @@ export const getMoviesBySearch = (text) => ({
   payload: text,
 });
 
-const getFilmsByGenres = (genres) => ({
+export const getFilmsByGenres = (genres) => ({
   type: GET_GENRES,
-  payload: genres,
+  genres,
 });
 
 export const setChosenItem = (item) => ({

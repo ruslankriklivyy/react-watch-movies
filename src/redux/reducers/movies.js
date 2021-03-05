@@ -25,7 +25,7 @@ const movies = (state = initialState, action) => {
     case GET_GENRES:
       return {
         ...state,
-        genres: action.payload,
+        genres: action.genres,
       };
 
     case SET_CHOSEN_ITEM:

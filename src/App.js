@@ -4,17 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
 import { Home, Movies, MovieItem } from './pages';
-import { setMovieId, setChosenItem } from './redux/actions/movies';
+import { setMovieId, setChosenItem, getGenres } from './redux/actions/movies';
 
 function App() {
   const dispatch = useDispatch();
   const { items, genres, chosenItem, movieId } = useSelector(({ movies }) => movies);
-
   const onSetMovieId = (id) => {
     const item = items.filter((obj) => obj.id === id);
     dispatch(setChosenItem(item));
     dispatch(setMovieId(id));
   };
+
+  React.useEffect(() => {
+    dispatch(getGenres(chosenItem));
+  }, [chosenItem, dispatch]);
 
   React.useEffect(() => {
     const localStorageRef = localStorage.getItem('chosenItem');

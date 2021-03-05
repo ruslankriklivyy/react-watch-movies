@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../components';
+import scrollTop from '../utils/scrollTo';
 
 const MovieItem = ({
   title,
@@ -11,10 +12,16 @@ const MovieItem = ({
   genre_ids,
 }) => {
   const newGenres = [];
-  for (let i = 0; i < genre_ids.length; i++) {
-    const newItem = genre.genres.filter((item) => item.id === genre_ids[i]);
-    newGenres.push(newItem[0]);
+  if (genre !== null) {
+    for (let i = 0; i < genre_ids.length; i++) {
+      const newItem = genre.genres.filter((item) => item.id === genre_ids[i]);
+      newGenres.push(newItem[0]);
+    }
   }
+
+  React.useEffect(() => {
+    scrollTop();
+  }, []);
 
   return (
     <div className="movie-watch__item">
