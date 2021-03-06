@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   movieId: null,
   genres: null,
+  trailerById: null,
   credits: [],
 };
 
@@ -15,6 +16,7 @@ const SET_IS_LOADING = 'SET_IS_LOADING';
 const SET_MOVIE_ID = 'SET_MOVIE_ID';
 const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
+const SET_TRAILER = 'SET_TRAILER';
 
 const movies = (state = initialState, action) => {
   switch (action.type) {
@@ -22,6 +24,12 @@ const movies = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_TRAILER:
+      return {
+        ...state,
+        trailerById: action.payload,
       };
 
     case SET_CREDITS:

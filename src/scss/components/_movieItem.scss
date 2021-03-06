@@ -5,6 +5,97 @@
   width: 80%;
   height: 100vh;
   margin: 0 auto;
+  &-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .back {
+      position: fixed;
+      top: 2%;
+      left: 0;
+      z-index: 100;
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        font-weight: 700;
+        color: #fff;
+        background: #2c2c2c;
+        opacity: 0.4;
+        width: 100px;
+        height: 35px;
+        padding-left: 15px;
+        transition: all 0.2s ease;
+        &:hover {
+          opacity: 0.8;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          top: 22%;
+          left: 8px;
+          background-image: url(../../assets/images/arrow.svg);
+          width: 20px;
+          height: 20px;
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+  }
+  &-blockout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 200;
+    background: rgba($color: #000000, $alpha: 0.6);
+    display: none;
+    opacity: 0;
+    transition: all 0.2s ease;
+    &.show {
+      opacity: 1;
+      display: block;
+    }
+  }
+  .trailer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 300;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease;
+    &-block {
+      position: relative;
+      span {
+        position: absolute;
+        top: -13px;
+        right: -23px;
+        z-index: 300;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      iframe {
+        width: 900px;
+        height: 500px;
+      }
+    }
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
   &-about {
     margin-top: 40px;
     p {
@@ -45,20 +136,21 @@
     }
   }
   &-actor {
-    width: 25%;
+    width: 23%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
     span {
       text-align: center;
+      font-size: 16px;
     }
     img {
       display: block;
       object-fit: fit;
-      width: 100px;
-      height: 130px;
-      border-radius: 15px;
+      width: 90px;
+      height: 120px;
+      border-radius: 20px;
       margin-bottom: 10px;
     }
   }

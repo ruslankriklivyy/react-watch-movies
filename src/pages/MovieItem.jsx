@@ -1,11 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+
 import { Button } from '../components';
 import scrollTop from '../utils/scrollTo';
 
-import { getGenres } from '../redux/actions/movies';
-
 import defaultUser from '../assets/images/default-user.webp';
-import { useDispatch } from 'react-redux';
+import closeSvg from '../assets/images/closeVideo.svg';
 
 const MovieItem = ({
   credits,
@@ -16,7 +17,10 @@ const MovieItem = ({
   poster_path,
   release_date,
   genre_ids,
+  trailer,
 }) => {
+  const [visibleTrailer, setVisibleTrailer] = React.useState(false);
+
   const newGenres = [];
   if (genre !== null) {
     for (let i = 0; i < genre_ids.length; i++) {
@@ -25,62 +29,113 @@ const MovieItem = ({
     }
   }
 
+  const blockOutRef = React.useRef();
+  const escapeListener = React.useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        setVisibleTrailer(false);
+      }
+    },
+    [setVisibleTrailer],
+  );
+  const clickListener = React.useCallback(
+    (e) => {
+      if (e.target.className && e.target.className === blockOutRef.current.className) {
+        setVisibleTrailer(false);
+      }
+    },
+    [blockOutRef, setVisibleTrailer],
+  );
+  React.useEffect(() => {
+    document.addEventListener('click', clickListener);
+    document.addEventListener('keyup', escapeListener);
+    return () => {
+      document.removeEventListener('click', clickListener);
+      document.removeEventListener('keyup', escapeListener);
+    };
+  }, [clickListener, escapeListener]);
+
   React.useEffect(() => {
     scrollTop();
   }, []);
 
   return (
-    <div className="movie-watch__item">
-      <div className="container">
-        <h4 className="movie-watch__item-title">{title}</h4>
-        <div className="movie-watch__item-box">
-          <div className="movie-watch__item-left">
-            <div className="movie-watch__item-img">
-              <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="movie img" />
-            </div>
-            <div className="movie-watch__item-trailer">
-              <Button>Watch Trailer</Button>
-            </div>
-          </div>
-          <div className="movie-watch__item-right">
-            <div className="movie-watch__item-info movie-watch__item-info--rating">
-              Rating: <span>{vote_average}</span>
-            </div>
-            <div className="movie-watch__item-info">Tagline</div>
-            <div className="movie-watch__item-info">
-              Year: <span>{release_date}</span>
-            </div>
-            <div className="movie-watch__item-info">
-              {/* Director: <span>{credits.slice(0, 1)[0].name}</span> */}
-            </div>
-            <div className="movie-watch__item-info">
-              Genre:
-              {newGenres.map((item, index) => (
-                <span className="movie-watch__item-genre" key={index}>
-                  {item.name}
-                </span>
-              ))}
-            </div>
-            <div className="movie-watch__item-info-actor">
-              Cast:
-              {credits.slice(0, 5).map((item) => (
-                <div className="movie-watch__item-actor">
-                  <img
-                    src={
-                      item.profile_path !== null
-                        ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
-                        : defaultUser
-                    }
-                    alt="actor img"
-                  />
-                  <span>{item.name}</span>
-                </div>
-              ))}
-            </div>
+    <div className="movie-watch__item-wrapper">
+      <div className="back">
+        <Link to="/watchmovies">Back</Link>
+      </div>
+      <div className="movie-watch__item">
+        <div
+          ref={blockOutRef}
+          className={classNames('movie-watch__item-blockout', {
+            show: visibleTrailer,
+          })}></div>
+        <div
+          className={classNames('trailer', {
+            show: visibleTrailer,
+          })}>
+          <div className="trailer-block">
+            <span onClick={() => setVisibleTrailer(false)}>
+              <img src={closeSvg} alt="close svg" />
+            </span>
+            <iframe
+              frameborder="0"
+              allowfullscreen
+              title="trailer"
+              width="468"
+              height="460"
+              src={`https://www.youtube.com/embed/${
+                trailer && trailer.results[0].key
+              }?showinfo=0`}></iframe>
           </div>
         </div>
-        <div className="movie-watch__item-about">
-          <p>{overview}</p>
+        <div className="container">
+          <h4 className="movie-watch__item-title">{title}</h4>
+          <div className="movie-watch__item-box">
+            <div className="movie-watch__item-left">
+              <div className="movie-watch__item-img">
+                <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="movie img" />
+              </div>
+              <div className="movie-watch__item-trailer">
+                <Button onClick={() => setVisibleTrailer(true)}>Watch Trailer</Button>
+              </div>
+            </div>
+            <div className="movie-watch__item-right">
+              <div className="movie-watch__item-info movie-watch__item-info--rating">
+                Rating: <span>{vote_average}</span>
+              </div>
+              <div className="movie-watch__item-info">
+                Year: <span>{release_date}</span>
+              </div>
+              <div className="movie-watch__item-info">
+                Genre:
+                {newGenres.map((item, index) => (
+                  <span className="movie-watch__item-genre" key={index}>
+                    {item.name}
+                  </span>
+                ))}
+              </div>
+              <div className="movie-watch__item-info-actor">
+                Cast:
+                {credits.slice(0, 5).map((item) => (
+                  <div className="movie-watch__item-actor">
+                    <img
+                      src={
+                        item.profile_path !== null
+                          ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+                          : defaultUser
+                      }
+                      alt="actor img"
+                    />
+                    <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="movie-watch__item-about">
+            <p>{overview}</p>
+          </div>
         </div>
       </div>
     </div>

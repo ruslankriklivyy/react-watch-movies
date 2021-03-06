@@ -1,5 +1,4 @@
 import { filmsAPI } from '../../api/api';
-import { SET_PAGE } from './filters';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -8,26 +7,13 @@ const SET_IS_LOADING = 'SET_IS_LOADING';
 const SET_MOVIE_ID = 'SET_MOVIE_ID';
 const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
+const SET_TRAILER = 'SET_TRAILER';
 
-export const getMovies = (genreId, page, sortType, searchValue, movieId) => async (dispatch) => {
+export const getMovies = (genreId, page, sortType, searchValue) => async (dispatch) => {
   dispatch(setIsLoading(true));
   const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page);
   dispatch(setMovies(data));
-  console.log(data);
   dispatch(setIsLoading(true));
-  // axios
-  //   .get(
-  //     `/movies?${genre !== null && genre !== '' ? `genre=${genre}` : ''}&_sort=${
-  //       sortType.type
-  //     }&_order=${sortType.order}`,
-  //   )
-  //   .then(({ data }) => {
-  //     const filterMovie = data.filter(
-  //       (item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0,
-  //     );
-  //     searchValue.length > 0 ? dispatch(setMovies(filterMovie)) : dispatch(setMovies(data));
-  //   })
-  //   .finally(() => dispatch(setIsLoading(true)));
 };
 
 export const getGenres = (genresFilms) => async (dispatch) => {
@@ -41,9 +27,19 @@ export const getCredits = (id) => async (dispatch) => {
   dispatch(setCredits(casts.cast));
 };
 
+export const getTrailerById = (id) => async (dispatch) => {
+  const data = await filmsAPI.getTrailer(id);
+  dispatch(setTrailerById(data));
+};
+
 export const setCredits = (casts) => ({
   type: SET_CREDITS,
   payload: casts,
+});
+
+export const setTrailerById = (trailer) => ({
+  type: SET_TRAILER,
+  payload: trailer,
 });
 
 export const getMoviesBySearch = (text) => ({

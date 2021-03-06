@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
 import { getMovies, getMoviesBySearch, getGenres } from '../redux/actions/movies';
 import { filterByGenre, filterBySortType, setCurrentPage } from '../redux/actions/filters';
+
 const sortBy = [
   { name: 'Latest', type: 'primary_release_date', order: 'desc' },
   { name: 'Popular', type: 'popularity', order: 'desc' },
@@ -29,7 +30,6 @@ const Movies = ({ onSetMovieId, movieId }) => {
   };
 
   const onSelectFilterGenre = (id) => {
-    // const genreName = index !== null ? genres.genres.name.toLowerCase() : '';
     dispatch(filterByGenre(id));
   };
 

@@ -1,9 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import loupeSvg from '../assets/images/loupe.svg';
 
 const Header = ({ onSearch }) => {
+  const searchValue = useSelector(({ movies }) => movies.searchValue);
   const [inputValue, setInputValue] = React.useState('');
 
   const onChangeInputValue = (text) => {
@@ -24,7 +26,7 @@ const Header = ({ onSearch }) => {
             <input
               onChange={(e) => onChangeInputValue(e.target.value)}
               type="text"
-              value={inputValue}
+              value={searchValue}
               placeholder="Search Movies"
             />
             <span>

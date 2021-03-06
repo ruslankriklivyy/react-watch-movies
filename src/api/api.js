@@ -33,4 +33,11 @@ export const filmsAPI = {
         return data;
       });
   },
+  getTrailer(id) {
+    return instance
+      .get(`movie/${id}/videos?api_key=74d41124b9d3bafd09d832463dd78216`)
+      .then(({ data }) => {
+        return data;
+      });
+  },
 };
