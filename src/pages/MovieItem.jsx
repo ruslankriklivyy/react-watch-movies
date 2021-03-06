@@ -2,10 +2,16 @@ import React from 'react';
 import { Button } from '../components';
 import scrollTop from '../utils/scrollTo';
 
+import { getGenres } from '../redux/actions/movies';
+
+import defaultUser from '../assets/images/default-user.webp';
+import { useDispatch } from 'react-redux';
+
 const MovieItem = ({
+  credits,
   title,
   genre,
-  popularity,
+  vote_average,
   overview,
   poster_path,
   release_date,
@@ -38,13 +44,15 @@ const MovieItem = ({
           </div>
           <div className="movie-watch__item-right">
             <div className="movie-watch__item-info movie-watch__item-info--rating">
-              Rating: <span>{popularity.toFixed(0)}</span>
+              Rating: <span>{vote_average}</span>
             </div>
             <div className="movie-watch__item-info">Tagline</div>
             <div className="movie-watch__item-info">
               Year: <span>{release_date}</span>
             </div>
-            <div className="movie-watch__item-info">Director</div>
+            <div className="movie-watch__item-info">
+              {/* Director: <span>{credits.slice(0, 1)[0].name}</span> */}
+            </div>
             <div className="movie-watch__item-info">
               Genre:
               {newGenres.map((item, index) => (
@@ -53,7 +61,22 @@ const MovieItem = ({
                 </span>
               ))}
             </div>
-            <div className="movie-watch__item-info">Cast actors</div>
+            <div className="movie-watch__item-info-actor">
+              Cast:
+              {credits.slice(0, 5).map((item) => (
+                <div className="movie-watch__item-actor">
+                  <img
+                    src={
+                      item.profile_path !== null
+                        ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+                        : defaultUser
+                    }
+                    alt="actor img"
+                  />
+                  <span>{item.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="movie-watch__item-about">

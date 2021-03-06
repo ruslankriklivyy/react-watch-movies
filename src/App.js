@@ -4,16 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
 import { Home, Movies, MovieItem } from './pages';
-import { setMovieId, setChosenItem, getGenres } from './redux/actions/movies';
+import { setMovieId, setChosenItem, getGenres, getCredits } from './redux/actions/movies';
 
 function App() {
   const dispatch = useDispatch();
-  const { items, genres, chosenItem, movieId } = useSelector(({ movies }) => movies);
+  const { items, credits, genres, chosenItem, movieId } = useSelector(({ movies }) => movies);
+
   const onSetMovieId = (id) => {
-    const item = items.filter((obj) => obj.id === id);
+    const item = items.results.filter((obj) => obj.id === id);
     dispatch(setChosenItem(item));
     dispatch(setMovieId(id));
   };
+
+  React.useEffect(() => {
+    dispatch(getCredits(movieId));
+  }, [movieId, dispatch]);
 
   React.useEffect(() => {
     dispatch(getGenres(chosenItem));
@@ -42,10 +47,8 @@ function App() {
         render={() => <Movies movieId={movieId} onSetMovieId={onSetMovieId} />}
       />
       <Route
-        path={`/watchmovies/${movieId}-${
-          movieId && chosenItem.length > 0 && chosenItem[0].title.split(' ').join('').toLowerCase()
-        }`}
-        render={() => <MovieItem genre={genres} {...chosenItem[0]} />}
+        path={`/watchmovies/${movieId}`}
+        render={() => <MovieItem credits={credits} genre={genres} {...chosenItem[0]} />}
       />
     </div>
   );

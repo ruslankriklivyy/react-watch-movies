@@ -1,20 +1,34 @@
 import * as axios from 'axios';
+import _ from 'lodash';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
 });
 
 export const filmsAPI = {
-  getPopularFilms() {
+  getPopularFilms(sortType, genreId, searchValue) {
     return instance
-      .get(`movie/popular/?api_key=74d41124b9d3bafd09d832463dd78216`)
+      .get(
+        `${
+          searchValue !== '' ? 'search' : 'discover'
+        }/movie?api_key=74d41124b9d3bafd09d832463dd78216&sort_by=${sortType.type}.${
+          sortType.order
+        }&vote_count.gte=15&with_genres=${genreId}&query=${searchValue}&certification_country=US&language=en-US`,
+      )
       .then(({ data }) => {
         return data;
       });
   },
-  getGenresFilms() {
+  getGenresFilms(sortType) {
     return instance
       .get(`genre/movie/list?api_key=74d41124b9d3bafd09d832463dd78216`)
+      .then(({ data }) => {
+        return data;
+      });
+  },
+  getCreditsFilms(id) {
+    return instance
+      .get(`movie/${id}/credits?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });

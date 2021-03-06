@@ -1,9 +1,9 @@
 const initialState = {
   sortType: {
-    type: 'year',
+    type: 'primary_release_date',
     order: 'desc',
   },
-  genre: null,
+  genreId: 28,
 };
 
 const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
@@ -20,7 +20,7 @@ const filters = (state = initialState, action) => {
     case FILTER_BY_GENRE:
       return {
         ...state,
-        genre: action.payload,
+        genreId: action.payload,
       };
 
     default:

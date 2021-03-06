@@ -7,9 +7,9 @@ const MovieBlock = ({ items, setId }) => {
   return (
     <div className="movies-block">
       {items &&
-        items.map(({ title, id, popularity, poster_path, release_date }) => (
+        items.map(({ title, id, vote_average, poster_path, release_date }) => (
           <Link
-            to={`/watchmovies/${id}-${title.split(' ').join('').toLowerCase()}`}
+            to={`/watchmovies/${id}`}
             onClick={() => setId(id)}
             key={id}
             className="movies-block__item">
@@ -24,7 +24,7 @@ const MovieBlock = ({ items, setId }) => {
                 <span>{release_date}</span>
                 <div className="movies-block__item-info-rating">
                   <img src={starSvg} alt="star svg" />
-                  <b>{popularity.toFixed(0)}</b>
+                  <b>{vote_average}</b>
                 </div>
               </div>
             </div>

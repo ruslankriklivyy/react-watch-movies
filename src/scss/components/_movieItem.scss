@@ -42,7 +42,24 @@
       &::after {
         display: none;
       }
-      // border-right: 2px solid #fbb023;
+    }
+  }
+  &-actor {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    span {
+      text-align: center;
+    }
+    img {
+      display: block;
+      object-fit: fit;
+      width: 100px;
+      height: 130px;
+      border-radius: 15px;
+      margin-bottom: 10px;
     }
   }
   &-info {
@@ -50,8 +67,20 @@
     margin-bottom: 45px;
     font-size: 22px;
     color: #d3d3d3;
+    &-actor {
+      font-weight: 400;
+      margin-bottom: 45px;
+      font-size: 22px;
+      color: #d3d3d3;
+      display: flex;
+    }
     span {
       color: #ff3b56;
+      line-height: 25px;
+      img {
+        width: 70px;
+        height: 90px;
+      }
     }
     &--rating {
       span {
