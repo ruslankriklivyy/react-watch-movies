@@ -4,10 +4,12 @@ const initialState = {
     order: 'desc',
   },
   genreId: 28,
+  currentPage: 1,
 };
 
 const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
+const SET_PAGE = 'SET_PAGE';
 
 const filters = (state = initialState, action) => {
   switch (action.type) {
@@ -15,6 +17,12 @@ const filters = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+      };
+
+    case SET_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
       };
 
     case FILTER_BY_GENRE:

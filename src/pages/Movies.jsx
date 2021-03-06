@@ -1,25 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Header, Menu, SortBy, MovieBlock } from '../components';
+import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
 import { getMovies, getMoviesBySearch, getGenres } from '../redux/actions/movies';
-import { filterByGenre, filterBySortType } from '../redux/actions/filters';
-
-// const genreNames = ['Action', 'Adventure', 'Comedy', 'Drama', 'Documentary', 'Crime'];
-// const genreNames = [
-//   {
-//     name: 'Action',
-//     genreId: 28
-//   },
-//   {
-//     name: 'Adventure',
-//     genreId: 12
-//   },
-//   {
-//     name: 'Comedy',
-//     genreId: 35
-//   }
-// ]
+import { filterByGenre, filterBySortType, setCurrentPage } from '../redux/actions/filters';
 const sortBy = [
   { name: 'Latest', type: 'primary_release_date', order: 'desc' },
   { name: 'Popular', type: 'popularity', order: 'desc' },
@@ -29,12 +13,12 @@ const sortBy = [
 
 const Movies = ({ onSetMovieId, movieId }) => {
   const dispatch = useDispatch();
-  const { items, genres, searchValue, chosenItem } = useSelector(({ movies }) => movies);
-  const { sortType, genreId } = useSelector(({ filters }) => filters);
+  const { items, genres, searchValue } = useSelector(({ movies }) => movies);
+  const { sortType, genreId, currentPage } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
-    dispatch(getMovies(genreId, chosenItem, sortType, searchValue, movieId));
-  }, [sortType, searchValue, movieId, chosenItem, genreId, dispatch]);
+    dispatch(getMovies(genreId, currentPage, sortType, searchValue, movieId));
+  }, [sortType, searchValue, movieId, currentPage, genreId, dispatch]);
 
   React.useEffect(() => {
     dispatch(getGenres(sortType));
@@ -47,6 +31,10 @@ const Movies = ({ onSetMovieId, movieId }) => {
   const onSelectFilterGenre = (id) => {
     // const genreName = index !== null ? genres.genres.name.toLowerCase() : '';
     dispatch(filterByGenre(id));
+  };
+
+  const onSelectPage = (page) => {
+    dispatch(setCurrentPage(page));
   };
 
   const onSelectFilterByType = React.useCallback(
@@ -67,6 +55,7 @@ const Movies = ({ onSetMovieId, movieId }) => {
           <MovieBlock setId={onSetMovieId} items={items.results} />
         </div>
       </div>
+      <Paginator onSelectPage={onSelectPage} />
     </div>
   );
 };

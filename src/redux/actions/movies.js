@@ -1,4 +1,5 @@
 import { filmsAPI } from '../../api/api';
+import { SET_PAGE } from './filters';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -8,12 +9,11 @@ const SET_MOVIE_ID = 'SET_MOVIE_ID';
 const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
 
-export const getMovies = (genreId, chosenItem, sortType, searchValue, movieId) => async (
-  dispatch,
-) => {
+export const getMovies = (genreId, page, sortType, searchValue, movieId) => async (dispatch) => {
   dispatch(setIsLoading(true));
-  const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue);
+  const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page);
   dispatch(setMovies(data));
+  console.log(data);
   dispatch(setIsLoading(true));
   // axios
   //   .get(

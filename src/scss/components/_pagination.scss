@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+  button {
+    width: 180px;
+    height: 40px;
+  }
+  .page-item:first-child button {
+    background: #ff3b57;
+    margin-right: 30px;
+  }
+}

@@ -6,14 +6,14 @@ const instance = axios.create({
 });
 
 export const filmsAPI = {
-  getPopularFilms(sortType, genreId, searchValue) {
+  getPopularFilms(sortType, genreId, searchValue, page) {
     return instance
       .get(
         `${
           searchValue !== '' ? 'search' : 'discover'
         }/movie?api_key=74d41124b9d3bafd09d832463dd78216&sort_by=${sortType.type}.${
           sortType.order
-        }&vote_count.gte=15&with_genres=${genreId}&query=${searchValue}&certification_country=US&language=en-US`,
+        }&vote_count.gte=15&with_genres=${genreId}&query=${searchValue}&page=${page}&certification_country=US&language=en-US`,
       )
       .then(({ data }) => {
         return data;
