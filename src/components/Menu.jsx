@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
 const Menu = React.memo(function Menu({ items, onSelectGenre }) {
-  const [activeItem, setActiveItem] = React.useState(0);
+  const { genreId } = useSelector(({ filters }) => filters);
 
-  const onSetActiveItem = (index, id, e) => {
+  const onSetActiveItem = (id, e) => {
     e.preventDefault();
-    setActiveItem(index);
     onSelectGenre(id);
   };
 
@@ -15,13 +15,13 @@ const Menu = React.memo(function Menu({ items, onSelectGenre }) {
       <div className="container">
         <ul className="menu">
           {items &&
-            items.map((item, index) => (
-              <li key={`${item.name}-${index}`} className="menu__item">
+            items.map((item) => (
+              <li key={`${item.name}-${item.id}`} className="menu__item">
                 <a
                   href="/"
-                  onClick={(e) => onSetActiveItem(index, item.id, e)}
+                  onClick={(e) => onSetActiveItem(item.id, e)}
                   className={classNames('menu__item-link', {
-                    active: index === activeItem,
+                    active: item.id === genreId,
                   })}>
                   {item.name}
                 </a>

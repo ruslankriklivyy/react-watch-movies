@@ -13,7 +13,6 @@ import {
   getTrailerById,
   getMovieDetails,
 } from './redux/actions/movies';
-import { filterByRate } from './redux/actions/filters';
 import { getToken, getSessionId } from './redux/actions/auth';
 
 function App() {
@@ -65,12 +64,10 @@ function App() {
     const localStorageRef = localStorage.getItem('chosenItem');
     const localStorageIdRef = localStorage.getItem('chosenItemId');
     const localStorageSearchInput = localStorage.getItem('searchInput');
-    const localStorageRefRate = localStorage.getItem('rateNumber');
     if (localStorageRef && localStorageSearchInput) {
       dispatch(setChosenItem(JSON.parse(localStorageRef)));
       dispatch(setMovieId(JSON.parse(localStorageIdRef)));
       dispatch(getMoviesBySearch(JSON.parse(localStorageSearchInput)));
-      dispatch(filterByRate(JSON.parse(localStorageRefRate)));
     }
   }, [dispatch]);
 
@@ -78,7 +75,6 @@ function App() {
     localStorage.setItem('chosenItem', JSON.stringify(chosenItem));
     localStorage.setItem('chosenItemId', JSON.stringify(movieId));
     localStorage.setItem('searchInput', JSON.stringify(searchValue));
-    localStorage.setItem('rateNumber', JSON.stringify(rateNumber));
   }, [chosenItem, rateNumber, searchValue, movieId]);
 
   return (

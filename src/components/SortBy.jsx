@@ -1,28 +1,21 @@
 import React from 'react';
 import Slider from 'react-rangeslider';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 import 'react-rangeslider/lib/index.css';
 
 import starSvg from '../assets/images/star.svg';
 
 const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
-  const [activeItem, setActiveItem] = React.useState(0);
-  const [value, setValue] = React.useState(5);
+  const { sortType, rateNumber } = useSelector(({ filters }) => filters);
 
   const onSetActiveItem = (index, e) => {
     e.preventDefault();
-    setActiveItem(index);
     onSelectFilter(index);
   };
 
-  React.useEffect(() => {
-    const localStorageRefRate = localStorage.getItem('rateNumber');
-    setValue(localStorageRefRate);
-  }, []);
-
   const handleChange = (val) => {
-    setValue(val);
-    onSelectRate(value);
+    onSelectRate(val);
   };
 
   return (
@@ -38,7 +31,7 @@ const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
                     href="/"
                     onClick={(e) => onSetActiveItem(index, e)}
                     className={classNames('sortby-menu__item-link', {
-                      active: index === activeItem,
+                      active: item.type === sortType.type,
                     })}>
                     {item.name}
                   </a>
@@ -49,9 +42,9 @@ const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
           <div className="sortby-right">
             <div className="slider">
               <img src={starSvg} alt="star svg" />
-              <Slider min={0} max={10} value={value} onChange={handleChange} />
+              <Slider min={0} max={10} value={rateNumber} onChange={handleChange} />
 
-              <span>{value}</span>
+              <span>{rateNumber}</span>
             </div>
           </div>
         </div>

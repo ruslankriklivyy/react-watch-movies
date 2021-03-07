@@ -1,20 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Button from './Button';
 
 const Paginator = ({ onSelectPage }) => {
-  let [page, setPage] = React.useState(1);
+  const { currentPage } = useSelector(({ filters }) => filters);
 
   const onNextPage = (e) => {
     e.preventDefault();
-    onSelectPage(page + 1);
-    setPage(page + 1);
+    onSelectPage(currentPage + 1);
   };
 
   const onPrevPage = (e) => {
     e.preventDefault();
-    if (page !== 1) {
-      onSelectPage(page - 1);
-      setPage(page - 1);
+    if (currentPage !== 1) {
+      onSelectPage(currentPage - 1);
     }
   };
 

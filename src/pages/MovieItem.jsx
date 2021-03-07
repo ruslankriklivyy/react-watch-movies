@@ -22,7 +22,6 @@ const MovieItem = ({
   movieDetails,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
-  // const { tagline, budget } = movieDetails;
 
   const newGenres = [];
   if (genre !== null) {
