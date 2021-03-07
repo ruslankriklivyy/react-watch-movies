@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import logoPng from '../assets/images/logo.png';
 import { Button } from '.';
 
-const HeaderHome = ({ items, onSetVisibleLogin, onSetVisibleRegistration }) => {
+const HeaderHome = ({ items, token, onSetVisibleLogin, onSetVisibleRegistration }) => {
   const [activeItem, setActiveItem] = React.useState(0);
 
   const onSetActiveItem = (index, e) => {
@@ -37,7 +37,9 @@ const HeaderHome = ({ items, onSetVisibleLogin, onSetVisibleRegistration }) => {
           </div>
           <div className="home-header-btns">
             <Button onClick={() => onSetVisibleRegistration()}>Sign Up</Button>
-            <Button onClick={() => onSetVisibleLogin()}>Login</Button>
+            <a href={`https://www.themoviedb.org/authenticate/${token && token.request_token}`}>
+              <Button onClick={() => onSetVisibleLogin()}>Login</Button>
+            </a>
           </div>
         </div>
       </div>

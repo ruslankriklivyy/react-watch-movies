@@ -11,13 +11,25 @@ import {
   getCredits,
   getMoviesBySearch,
   getTrailerById,
+  getMovieDetails,
 } from './redux/actions/movies';
+import { filterByRate } from './redux/actions/filters';
+import { getToken, getSessionId } from './redux/actions/auth';
 
 function App() {
   const dispatch = useDispatch();
-  const { items, credits, trailerById, searchValue, genres, chosenItem, movieId } = useSelector(
-    ({ movies }) => movies,
-  );
+  const {
+    items,
+    movieDetails,
+    credits,
+    trailerById,
+    searchValue,
+    genres,
+    chosenItem,
+    movieId,
+  } = useSelector(({ movies }) => movies);
+  const rateNumber = useSelector(({ filters }) => filters.rateNumber);
+  const { token } = useSelector(({ auth }) => auth);
 
   const onSetMovieId = (id) => {
     const item = items.results.filter((obj) => obj.id === id);
@@ -26,8 +38,20 @@ function App() {
   };
 
   React.useEffect(() => {
+    dispatch(getMovieDetails(movieId));
+  }, [dispatch, movieId]);
+
+  React.useEffect(() => {
+    dispatch(getSessionId(token));
+  }, [dispatch, token]);
+
+  React.useEffect(() => {
     dispatch(getTrailerById(movieId));
   }, [dispatch, movieId]);
+
+  React.useEffect(() => {
+    dispatch(getToken());
+  }, [dispatch]);
 
   React.useEffect(() => {
     dispatch(getCredits(movieId));
@@ -41,10 +65,12 @@ function App() {
     const localStorageRef = localStorage.getItem('chosenItem');
     const localStorageIdRef = localStorage.getItem('chosenItemId');
     const localStorageSearchInput = localStorage.getItem('searchInput');
+    const localStorageRefRate = localStorage.getItem('rateNumber');
     if (localStorageRef && localStorageSearchInput) {
       dispatch(setChosenItem(JSON.parse(localStorageRef)));
       dispatch(setMovieId(JSON.parse(localStorageIdRef)));
       dispatch(getMoviesBySearch(JSON.parse(localStorageSearchInput)));
+      dispatch(filterByRate(JSON.parse(localStorageRefRate)));
     }
   }, [dispatch]);
 
@@ -52,11 +78,12 @@ function App() {
     localStorage.setItem('chosenItem', JSON.stringify(chosenItem));
     localStorage.setItem('chosenItemId', JSON.stringify(movieId));
     localStorage.setItem('searchInput', JSON.stringify(searchValue));
-  }, [chosenItem, searchValue, movieId]);
+    localStorage.setItem('rateNumber', JSON.stringify(rateNumber));
+  }, [chosenItem, rateNumber, searchValue, movieId]);
 
   return (
     <div className="App">
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" render={() => <Home token={token} />} />
       <Route
         exact
         path="/watchmovies"
@@ -65,7 +92,13 @@ function App() {
       <Route
         path={`/watchmovies/${movieId}`}
         render={() => (
-          <MovieItem trailer={trailerById} credits={credits} genre={genres} {...chosenItem[0]} />
+          <MovieItem
+            movieDetails={movieDetails}
+            trailer={trailerById}
+            credits={credits}
+            genre={genres}
+            {...chosenItem[0]}
+          />
         )}
       />
     </div>

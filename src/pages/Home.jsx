@@ -5,7 +5,7 @@ import { HeaderHome, Intro, Login, Registration } from '../components';
 
 const links = ['Home', 'About', 'Contact', 'Watch Movies!'];
 
-const Home = () => {
+const Home = ({ token }) => {
   const blockOutRef = React.useRef();
   const [visibleLoginForm, setVisibleLoginForm] = React.useState(false);
   const [visibleRegistrationForm, setVisibleRegistrationForm] = React.useState(false);
@@ -33,6 +33,7 @@ const Home = () => {
         blockout: visibleLoginForm || visibleRegistrationForm,
       })}>
       <HeaderHome
+        token={token}
         items={links}
         onSetVisibleLogin={onSetVisibleLoginForm}
         onSetVisibleRegistration={onSetRegistrationForm}

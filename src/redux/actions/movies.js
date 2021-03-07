@@ -8,10 +8,11 @@ const SET_MOVIE_ID = 'SET_MOVIE_ID';
 const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
 const SET_TRAILER = 'SET_TRAILER';
+const SET_MOVIE_DETAILS = 'SET_MOVIE_DETAILS';
 
-export const getMovies = (genreId, page, sortType, searchValue) => async (dispatch) => {
+export const getMovies = (genreId, page, sortType, searchValue, rateNumber) => async (dispatch) => {
   dispatch(setIsLoading(true));
-  const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page);
+  const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page, rateNumber);
   dispatch(setMovies(data));
   dispatch(setIsLoading(true));
 };
@@ -27,6 +28,11 @@ export const getCredits = (id) => async (dispatch) => {
   dispatch(setCredits(casts.cast));
 };
 
+export const getMovieDetails = (movieId) => async (dispatch) => {
+  const movie = await filmsAPI.getDetails(movieId);
+  dispatch(setMovieDetails(movie));
+};
+
 export const getTrailerById = (id) => async (dispatch) => {
   const data = await filmsAPI.getTrailer(id);
   dispatch(setTrailerById(data));
@@ -35,6 +41,11 @@ export const getTrailerById = (id) => async (dispatch) => {
 export const setCredits = (casts) => ({
   type: SET_CREDITS,
   payload: casts,
+});
+
+export const setMovieDetails = (movie) => ({
+  type: SET_MOVIE_DETAILS,
+  payload: movie,
 });
 
 export const setTrailerById = (trailer) => ({

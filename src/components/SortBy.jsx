@@ -1,15 +1,28 @@
 import React from 'react';
+import Slider from 'react-rangeslider';
 import classNames from 'classnames';
+import 'react-rangeslider/lib/index.css';
 
 import starSvg from '../assets/images/star.svg';
 
-const SortBy = ({ items, onSelectFilter }) => {
+const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
   const [activeItem, setActiveItem] = React.useState(0);
+  const [value, setValue] = React.useState(5);
 
   const onSetActiveItem = (index, e) => {
     e.preventDefault();
     setActiveItem(index);
     onSelectFilter(index);
+  };
+
+  React.useEffect(() => {
+    const localStorageRefRate = localStorage.getItem('rateNumber');
+    setValue(localStorageRefRate);
+  }, []);
+
+  const handleChange = (val) => {
+    setValue(val);
+    onSelectRate(value);
   };
 
   return (
@@ -34,10 +47,11 @@ const SortBy = ({ items, onSelectFilter }) => {
             </ul>
           </div>
           <div className="sortby-right">
-            <div className="sortby-stars">
+            <div className="slider">
               <img src={starSvg} alt="star svg" />
-              <div className="sortby-set"></div>
-              <span>5.0</span>
+              <Slider min={0} max={10} value={value} onChange={handleChange} />
+
+              <span>{value}</span>
             </div>
           </div>
         </div>

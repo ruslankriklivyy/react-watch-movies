@@ -18,8 +18,11 @@ const MovieItem = ({
   release_date,
   genre_ids,
   trailer,
+  vote_count,
+  movieDetails,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
+  // const { tagline, budget } = movieDetails;
 
   const newGenres = [];
   if (genre !== null) {
@@ -85,7 +88,7 @@ const MovieItem = ({
               width="468"
               height="460"
               src={`https://www.youtube.com/embed/${
-                trailer && trailer.results[0].key
+                trailer && trailer.results.length > 0 && trailer.results[0].key
               }?showinfo=0`}></iframe>
           </div>
         </div>
@@ -102,11 +105,24 @@ const MovieItem = ({
             </div>
             <div className="movie-watch__item-right">
               <div className="movie-watch__item-info movie-watch__item-info--rating">
-                Rating: <span>{vote_average}</span>
+                Vote Average: <span>{vote_average}</span>
+              </div>
+              <div className="movie-watch__item-info">
+                Vote Count: <span>{vote_count}</span>
               </div>
               <div className="movie-watch__item-info">
                 Year: <span>{release_date}</span>
               </div>
+              {movieDetails && movieDetails.tagline !== '' && (
+                <div className="movie-watch__item-info">
+                  Tagline: <span>{movieDetails.tagline}</span>
+                </div>
+              )}
+              {movieDetails && movieDetails.budget > 0 && (
+                <div className="movie-watch__item-info">
+                  Budget: <span>{movieDetails.budget}$</span>
+                </div>
+              )}
               <div className="movie-watch__item-info">
                 Genre:
                 {newGenres.map((item, index) => (

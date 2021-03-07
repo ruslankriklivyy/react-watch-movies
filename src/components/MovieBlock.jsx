@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import starSvg from '../assets/images/star.svg';
+import voteCount from '../assets/images/review.svg';
 
 const MovieBlock = ({ items, setId }) => {
   return (
     <div className="movies-block">
       {items &&
-        items.map(({ title, id, vote_average, poster_path, release_date }) => (
+        items.map(({ title, id, vote_average, poster_path, release_date, vote_count }) => (
           <Link
             to={`/watchmovies/${id}`}
             onClick={() => setId(id)}
@@ -21,9 +22,17 @@ const MovieBlock = ({ items, setId }) => {
                 <h4>{title}</h4>
               </div>
               <div className="movies-block__item-info-bottom">
-                <span>{release_date}</span>
+                <span className="movies-block__item-info-bottom-date">{release_date}</span>
                 <div className="movies-block__item-info-rating">
-                  <img src={starSvg} alt="star svg" />
+                  <span className="movies-block__item-info-vote">
+                    <img src={voteCount} alt="vote count svg" />
+                    {vote_count}
+                  </span>
+                  <img
+                    className="movies-block__item-info-rating-img"
+                    src={starSvg}
+                    alt="star svg"
+                  />
                   <b>{vote_average}</b>
                 </div>
               </div>
