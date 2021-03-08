@@ -9,12 +9,20 @@ const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
 const SET_TRAILER = 'SET_TRAILER';
 const SET_MOVIE_DETAILS = 'SET_MOVIE_DETAILS';
+const SET_RATE_MOVIE = 'SET_RATE_MOVIE';
+const SET_RATE_VALUE = 'SET_RATE_VALUE';
 
 export const getMovies = (genreId, page, sortType, searchValue, rateNumber) => async (dispatch) => {
   dispatch(setIsLoading(true));
   const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page, rateNumber);
   dispatch(setMovies(data));
   dispatch(setIsLoading(true));
+};
+
+export const postRateById = (id, value, sessionId) => async (dispatch) => {
+  const data = await filmsAPI.postRateMovie(id, value, sessionId);
+  console.log(data);
+  dispatch(setRateMovie(data));
 };
 
 export const getGenres = (genresFilms) => async (dispatch) => {
@@ -37,6 +45,16 @@ export const getTrailerById = (id) => async (dispatch) => {
   const data = await filmsAPI.getTrailer(id);
   dispatch(setTrailerById(data));
 };
+
+export const setRateMovie = (data) => ({
+  type: SET_RATE_MOVIE,
+  payload: data,
+});
+
+export const setValueRate = (value) => ({
+  type: SET_RATE_VALUE,
+  payload: value,
+});
 
 export const setCredits = (casts) => ({
   type: SET_CREDITS,

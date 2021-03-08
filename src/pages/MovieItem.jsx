@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import ReactStars from 'react-rating-stars-component';
 import { Link } from 'react-router-dom';
 
 import { Button } from '../components';
@@ -7,6 +8,9 @@ import scrollTop from '../utils/scrollTo';
 
 import defaultUser from '../assets/images/default-user.webp';
 import closeSvg from '../assets/images/closeVideo.svg';
+import halfStarSvg from '../assets/images/star-half.svg';
+import emptyStarSvg from '../assets/images/empty-star.svg';
+import fullStarSvg from '../assets/images/star-full.svg';
 
 const MovieItem = ({
   credits,
@@ -20,6 +24,7 @@ const MovieItem = ({
   trailer,
   vote_count,
   movieDetails,
+  onSetValueRate,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
 
@@ -30,6 +35,10 @@ const MovieItem = ({
       newGenres.push(newItem[0]);
     }
   }
+
+  const setRateValue = (val) => {
+    onSetValueRate(val);
+  };
 
   const blockOutRef = React.useRef();
   const escapeListener = React.useCallback(
@@ -145,6 +154,20 @@ const MovieItem = ({
                     <span>{item.name}</span>
                   </div>
                 ))}
+              </div>
+              <div className="movie-watch__item-rate">
+                <span className="movie-watch__item-rate-title">Rate movie: </span>
+                <ReactStars
+                  count={10}
+                  isHalf={true}
+                  onChange={setRateValue}
+                  size={30}
+                  value={vote_average}
+                  activeColor="#ffd700"
+                  emptyIcon={<img className="rate" src={emptyStarSvg} alt="star svg" />}
+                  halfIcon={<img className="rate" src={halfStarSvg} alt="star svg" />}
+                  filledIcon={<img className="rate" src={fullStarSvg} alt="star svg" />}
+                />
               </div>
             </div>
           </div>

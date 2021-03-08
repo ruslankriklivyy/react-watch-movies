@@ -8,6 +8,8 @@ const initialState = {
   genres: null,
   trailerById: null,
   credits: [],
+  statusRate: null,
+  rateValue: null,
 };
 
 const SET_MOVIES = 'SET_MOVIES';
@@ -19,6 +21,8 @@ const GET_GENRES = 'GET_GENRES';
 const SET_CREDITS = 'SET_CREDITS';
 const SET_TRAILER = 'SET_TRAILER';
 const SET_MOVIE_DETAILS = 'SET_MOVIE_DETAILS';
+const SET_RATE_MOVIE = 'SET_RATE_MOVIE';
+const SET_RATE_VALUE = 'SET_RATE_VALUE';
 
 const movies = (state = initialState, action) => {
   switch (action.type) {
@@ -26,6 +30,18 @@ const movies = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_RATE_MOVIE:
+      return {
+        ...state,
+        statusRate: action.payload,
+      };
+
+    case SET_RATE_VALUE:
+      return {
+        ...state,
+        rateValue: action.payload,
       };
 
     case SET_TRAILER:

@@ -12,6 +12,8 @@ import {
   getMoviesBySearch,
   getTrailerById,
   getMovieDetails,
+  postRateById,
+  setValueRate,
 } from './redux/actions/movies';
 import { getToken, getSessionId } from './redux/actions/auth';
 
@@ -26,9 +28,11 @@ function App() {
     genres,
     chosenItem,
     movieId,
+    reviews,
+    rateValue,
   } = useSelector(({ movies }) => movies);
   const rateNumber = useSelector(({ filters }) => filters.rateNumber);
-  const { token } = useSelector(({ auth }) => auth);
+  const { token, sessionId } = useSelector(({ auth }) => auth);
 
   const onSetMovieId = React.useCallback(
     (id) => {
@@ -38,6 +42,17 @@ function App() {
     },
     [dispatch, items.results],
   );
+
+  const onSetValueRate = React.useCallback(
+    (val) => {
+      dispatch(setValueRate(val));
+    },
+    [dispatch],
+  );
+
+  React.useEffect(() => {
+    dispatch(postRateById(movieId, rateValue, sessionId));
+  }, [dispatch, movieId, rateValue, sessionId]);
 
   React.useEffect(() => {
     dispatch(getMovieDetails(movieId));
@@ -92,6 +107,8 @@ function App() {
         path={`/watchmovies/${movieId}`}
         render={() => (
           <MovieItem
+            onSetValueRate={onSetValueRate}
+            reviews={reviews}
             movieDetails={movieDetails}
             trailer={trailerById}
             credits={credits}

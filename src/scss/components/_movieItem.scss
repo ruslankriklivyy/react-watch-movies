@@ -5,6 +5,21 @@
   width: 80%;
   height: 100vh;
   margin: 0 auto;
+  &-rate {
+    display: flex;
+    align-items: center;
+    outline: none;
+    &-title {
+      font-weight: 400;
+      margin-right: 12px;
+      font-size: 22px;
+      color: #d3d3d3;
+    }
+  }
+  .rate {
+    width: 30px;
+    height: 30px;
+  }
   &-wrapper {
     position: relative;
     width: 100%;
@@ -98,7 +113,9 @@
   }
   &-about {
     margin-top: 40px;
+
     p {
+      padding-bottom: 20px;
       font-weight: 400;
       font-size: 18px;
       line-height: 20px;

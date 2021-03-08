@@ -6,8 +6,19 @@ const instance = axios.create({
 });
 
 export const filmsAPI = {
+  postRateMovie(id, value, sessionId) {
+    return instance
+      .post(
+        `movie/${id}/rating?api_key=74d41124b9d3bafd09d832463dd78216&session_id=${sessionId.session_id}`,
+        {
+          value: value,
+        },
+      )
+      .then(({ data }) => {
+        return data;
+      });
+  },
   getPopularFilms(sortType, genreId, searchValue, page, rateNumber) {
-    console.log(rateNumber);
     return instance
       .get(
         `${
