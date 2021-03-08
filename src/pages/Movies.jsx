@@ -21,9 +21,12 @@ const Movies = ({ onSetMovieId }) => {
   const { items, genres, searchValue } = useSelector(({ movies }) => movies);
   const { sortType, genreId, currentPage, rateNumber } = useSelector(({ filters }) => filters);
 
-  const onSelectRate = (num) => {
-    dispatch(filterByRate(num));
-  };
+  const onSelectRate = React.useCallback(
+    (num) => {
+      dispatch(filterByRate(num));
+    },
+    [dispatch],
+  );
 
   React.useEffect(() => {
     dispatch(getMovies(genreId, currentPage, sortType, searchValue, rateNumber));
@@ -33,13 +36,19 @@ const Movies = ({ onSetMovieId }) => {
     dispatch(getGenres(sortType));
   }, [dispatch, sortType]);
 
-  const onSearchMovie = (text) => {
-    dispatch(getMoviesBySearch(text));
-  };
+  const onSearchMovie = React.useCallback(
+    (text) => {
+      dispatch(getMoviesBySearch(text));
+    },
+    [dispatch],
+  );
 
-  const onSelectFilterGenre = (id) => {
-    dispatch(filterByGenre(id));
-  };
+  const onSelectFilterGenre = React.useCallback(
+    (id) => {
+      dispatch(filterByGenre(id));
+    },
+    [dispatch],
+  );
 
   const onSelectPage = (page) => {
     dispatch(setCurrentPage(page));

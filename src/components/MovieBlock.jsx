@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import starSvg from '../assets/images/star.svg';
 import voteCount from '../assets/images/review.svg';
+import defaultMovie from '../assets/images/default-movie.jpg';
 
 const MovieBlock = ({ items, setId }) => {
   return (
@@ -15,7 +16,10 @@ const MovieBlock = ({ items, setId }) => {
             key={id}
             className="movies-block__item">
             <div className="movies-block__item-img">
-              <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="movies img" />
+              <img
+                src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : defaultMovie}
+                alt="movies img"
+              />
             </div>
             <div className="movies-block__item-info">
               <div className="movies-block__item-info-top">

@@ -6,7 +6,7 @@ import 'react-rangeslider/lib/index.css';
 
 import starSvg from '../assets/images/star.svg';
 
-const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
+const SortBy = React.memo(function SortBy({ items, onSelectFilter, onSelectRate }) {
   const { sortType, rateNumber } = useSelector(({ filters }) => filters);
 
   const onSetActiveItem = (index, e) => {
@@ -43,7 +43,6 @@ const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
             <div className="slider">
               <img src={starSvg} alt="star svg" />
               <Slider min={0} max={10} value={rateNumber} onChange={handleChange} />
-
               <span>{rateNumber}</span>
             </div>
           </div>
@@ -51,6 +50,6 @@ const SortBy = ({ items, onSelectFilter, onSelectRate }) => {
       </div>
     </div>
   );
-};
+});
 
 export default SortBy;

@@ -30,11 +30,14 @@ function App() {
   const rateNumber = useSelector(({ filters }) => filters.rateNumber);
   const { token } = useSelector(({ auth }) => auth);
 
-  const onSetMovieId = (id) => {
-    const item = items.results.filter((obj) => obj.id === id);
-    dispatch(setChosenItem(item));
-    dispatch(setMovieId(id));
-  };
+  const onSetMovieId = React.useCallback(
+    (id) => {
+      const item = items.results.filter((obj) => obj.id === id);
+      dispatch(setChosenItem(item));
+      dispatch(setMovieId(id));
+    },
+    [dispatch, items.results],
+  );
 
   React.useEffect(() => {
     dispatch(getMovieDetails(movieId));
