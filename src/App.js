@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Route } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
 import { Home, Movies, MovieItem } from './pages';
 import {
   setMovieId,
@@ -15,7 +14,7 @@ import {
   postRateById,
   setValueRate,
 } from './redux/actions/movies';
-import { getToken, getSessionId } from './redux/actions/auth';
+import { getToken, getSessionId, setSessionId } from './redux/actions/auth';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +32,10 @@ function App() {
   } = useSelector(({ movies }) => movies);
   const rateNumber = useSelector(({ filters }) => filters.rateNumber);
   const { token, sessionId } = useSelector(({ auth }) => auth);
+  const [cookies, setCookie] = useCookies(['name']);
+  const request_token = token && token.request_token;
+
+  setCookie('tokenCookie', token, { path: '/', maxAge: 604800 });
 
   const onSetMovieId = React.useCallback(
     (id) => {
@@ -59,16 +62,19 @@ function App() {
   }, [dispatch, movieId]);
 
   React.useEffect(() => {
-    dispatch(getSessionId(token));
-  }, [dispatch, token]);
+    if (cookies.request_token === request_token) {
+      dispatch(getSessionId(token));
+    }
+    dispatch(getSessionId(cookies.request_token));
+  }, [dispatch, token, cookies, request_token]);
 
   React.useEffect(() => {
     dispatch(getTrailerById(movieId));
   }, [dispatch, movieId]);
 
   React.useEffect(() => {
-    dispatch(getToken());
-  }, [dispatch]);
+    dispatch(getToken(cookies));
+  }, [dispatch, cookies]);
 
   React.useEffect(() => {
     dispatch(getCredits(movieId));
@@ -82,6 +88,7 @@ function App() {
     const localStorageRef = localStorage.getItem('chosenItem');
     const localStorageIdRef = localStorage.getItem('chosenItemId');
     const localStorageSearchInput = localStorage.getItem('searchInput');
+
     if (localStorageRef && localStorageSearchInput) {
       dispatch(setChosenItem(JSON.parse(localStorageRef)));
       dispatch(setMovieId(JSON.parse(localStorageIdRef)));
@@ -94,6 +101,23 @@ function App() {
     localStorage.setItem('chosenItemId', JSON.stringify(movieId));
     localStorage.setItem('searchInput', JSON.stringify(searchValue));
   }, [chosenItem, rateNumber, searchValue, movieId]);
+
+  React.useEffect(() => {
+    const localStorageToken = localStorage.getItem('request_token');
+    const localStorageSessionId = localStorage.getItem('sessionId');
+    // dispatch(setSessionId(JSON.parse(localStorageSessionId)));
+    // dispatch(getToken(JSON.parse(localStorageToken)));
+  }, [dispatch]);
+
+  // React.useEffect(() => {
+  //   if (sessionId && sessionId.success === true) {
+  //     localStorage.setItem('sessionId', JSON.stringify(sessionId));
+  //   }
+  // }, [sessionId]);
+
+  React.useEffect(() => {
+    localStorage.setItem('request_token', JSON.stringify(token));
+  });
 
   return (
     <div className="App">

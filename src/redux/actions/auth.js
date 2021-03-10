@@ -5,12 +5,15 @@ const GET_SESSION_ID = 'GET_SESSION_ID';
 
 export const getToken = () => async (dispatch) => {
   const token = await authAPI.getUserToken();
+
   dispatch(setToken(token));
 };
 
 export const getSessionId = (token) => async (dispatch) => {
   const sessionId = await authAPI.getSessionId(token);
+  // if (sessionId.success === true) {
   dispatch(setSessionId(sessionId));
+  // }
 };
 
 export const setToken = (token) => ({

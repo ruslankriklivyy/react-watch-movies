@@ -5,6 +5,7 @@ const initialState = {
   },
   genreId: 28,
   currentPage: 1,
+  totalPages: 0,
   rateNumber: 5,
 };
 
@@ -12,6 +13,7 @@ const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 const SET_PAGE = 'SET_PAGE';
 const FILTER_BY_RATE = 'FILTER_BY_RATE';
+const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 
 const filters = (state = initialState, action) => {
   switch (action.type) {
@@ -19,6 +21,12 @@ const filters = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+      };
+
+    case SET_TOTAL_PAGES:
+      return {
+        ...state,
+        totalPages: action.paylaod,
       };
 
     case FILTER_BY_RATE:

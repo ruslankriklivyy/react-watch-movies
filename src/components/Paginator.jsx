@@ -1,31 +1,29 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useSelector } from 'react-redux';
-import Button from './Button';
+
+import createPages from '../utils/createPages';
 
 const Paginator = ({ onSelectPage }) => {
-  const { currentPage } = useSelector(({ filters }) => filters);
-
-  const onNextPage = (e) => {
-    e.preventDefault();
-    onSelectPage(currentPage + 1);
-  };
-
-  const onPrevPage = (e) => {
-    e.preventDefault();
-    if (currentPage !== 1) {
-      onSelectPage(currentPage - 1);
-    }
-  };
+  const { currentPage, totalPages } = useSelector(({ filters }) => filters);
+  const perPage = 5;
+  const countPages = Math.ceil(totalPages / perPage);
+  const pages = [];
+  createPages(pages, countPages, currentPage);
 
   return (
     <nav>
       <ul className="pagination">
-        <li className="page-item">
-          <Button onClick={(e) => onPrevPage(e)}>Prev page</Button>
-        </li>
-        <li className="page-item">
-          <Button onClick={(e) => onNextPage(e)}>Next page</Button>
-        </li>
+        {pages.map((num, index) => (
+          <li
+            key={`${num}-${index}`}
+            onClick={() => onSelectPage(num)}
+            className={classNames('page-item', {
+              active: num === currentPage,
+            })}>
+            {num}
+          </li>
+        ))}
       </ul>
     </nav>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import scrollTo from '../utils/scrollTo';
 import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
 import { getMovies, getMoviesBySearch, getGenres } from '../redux/actions/movies';
 import {
@@ -52,6 +53,7 @@ const Movies = ({ onSetMovieId }) => {
 
   const onSelectPage = (page) => {
     dispatch(setCurrentPage(page));
+    scrollTo();
   };
 
   const onSelectFilterByType = React.useCallback(

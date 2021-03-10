@@ -2,12 +2,22 @@
   display: flex;
   justify-content: center;
   margin-bottom: 35px;
-  button {
-    width: 180px;
-    height: 40px;
+  .page-item {
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+    margin: 0 5px;
+    cursor: pointer;
+    &.active {
+      color: #fab12f;
+    }
   }
-  .page-item:first-child button {
-    background: #ff3b57;
-    margin-right: 30px;
-  }
+  // button {
+  //   width: 180px;
+  //   height: 40px;
+  // }
+  // .page-item:first-child button {
+  //   background: #ff3b57;
+  //   margin-right: 30px;
+  // }
 }

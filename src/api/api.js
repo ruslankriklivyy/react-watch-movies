@@ -1,5 +1,4 @@
 import * as axios from 'axios';
-import _ from 'lodash';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
@@ -9,7 +8,9 @@ export const filmsAPI = {
   postRateMovie(id, value, sessionId) {
     return instance
       .post(
-        `movie/${id}/rating?api_key=74d41124b9d3bafd09d832463dd78216&session_id=${sessionId.session_id}`,
+        `movie/${id}/rating?api_key=74d41124b9d3bafd09d832463dd78216&session_id=${
+          sessionId && sessionId.session_id
+        }`,
         {
           value: value,
         },
@@ -39,7 +40,7 @@ export const filmsAPI = {
         return data;
       });
   },
-  getGenresFilms(sortType) {
+  getGenresFilms() {
     return instance
       .get(`genre/movie/list?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
@@ -73,7 +74,7 @@ export const authAPI = {
   getSessionId(token) {
     return instance
       .post(`/authentication/session/new?api_key=74d41124b9d3bafd09d832463dd78216`, {
-        request_token: token && token.request_token,
+        request_token: token,
       })
       .then(({ data }) => {
         return data;

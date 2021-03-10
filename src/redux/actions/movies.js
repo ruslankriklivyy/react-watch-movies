@@ -1,4 +1,5 @@
 import { filmsAPI } from '../../api/api';
+import { setTotalPages } from './filters';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -15,13 +16,13 @@ const SET_RATE_VALUE = 'SET_RATE_VALUE';
 export const getMovies = (genreId, page, sortType, searchValue, rateNumber) => async (dispatch) => {
   dispatch(setIsLoading(true));
   const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page, rateNumber);
+  dispatch(setTotalPages(data.total_pages));
   dispatch(setMovies(data));
   dispatch(setIsLoading(true));
 };
 
 export const postRateById = (id, value, sessionId) => async (dispatch) => {
   const data = await filmsAPI.postRateMovie(id, value, sessionId);
-  console.log(data);
   dispatch(setRateMovie(data));
 };
 
