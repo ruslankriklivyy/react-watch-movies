@@ -1,8 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Carousel from 'react-elastic-carousel';
+import Slider from 'react-slick';
 
-const Intro = () => {
+const Intro = ({ items, setId }) => {
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 778,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="intro">
       <div className="container">
@@ -12,38 +32,20 @@ const Intro = () => {
             <Link to={'/watchmovies'}>Start Watching</Link>
           </div>
           <div className="intro-top-movies">
-            <Carousel
-              className="carousel-wrapper"
-              showArrows={false}
-              isRTL={true}
-              initialFirstItem={0}
-              enableMouseSwipe={false}
-              itemsToShow={2}>
-              <div className="intro-top-movies__item">
-                <img
-                  src="https://www.vintagemovieposters.co.uk/wp-content/uploads/2019/11/IMG_2167-2.jpeg"
-                  alt="img movie"
-                />
-              </div>
-              <div className="intro-top-movies__item">
-                <img
-                  src="https://m.media-amazon.com/images/M/MV5BMjA2NjU5MTg5OF5BMl5BanBnXkFtZTgwOTkyMzQxMDE@._V1_.jpg"
-                  alt="img movie"
-                />
-              </div>
-              <div className="intro-top-movies__item">
-                <img
-                  src="https://images-na.ssl-images-amazon.com/images/I/A1PaCX4oXjL._AC_SL1500_.jpg"
-                  alt="img movie"
-                />
-              </div>
-              <div className="intro-top-movies__item">
-                <img
-                  src="https://i.pinimg.com/originals/d1/2a/a6/d12aa686c0838fd94581bf14625b03fd.png"
-                  alt="img movie"
-                />
-              </div>
-            </Carousel>
+            <Slider {...settings}>
+              {items &&
+                items.results.slice(0, 4).map((item) => (
+                  <Link
+                    to={`/watchmovies/${item.id}`}
+                    onClick={() => setId(item.id)}
+                    className="intro-top-movies__item">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                      alt="img movie"
+                    />
+                  </Link>
+                ))}
+            </Slider>
           </div>
         </div>
       </div>

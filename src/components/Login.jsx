@@ -1,27 +1,39 @@
 import React from 'react';
 import classNames from 'classnames';
+import { setUsers } from '../redux/actions/auth';
 import { Button } from './';
+import { getUser } from '../redux/actions/auth';
 
+import { useDispatch, useSelector } from 'react-redux';
 import cancelSvg from '../assets/images/close.svg';
 
 const Login = ({ visibleForm, onSetVisible, onClose, blockOutRef }) => {
-  const popupRef = React.useRef();
+  const dispatch = useDispatch();
+  const { user, token } = useSelector(({ auth }) => auth);
+  const [usernameValue, setUserName] = React.useState('');
+  const [passwordValue, setPassword] = React.useState('');
+  // 6JK37P3vvr@4YPY
+
+  const onSend = () => {
+    dispatch(getUser(user.username, user.password, token.request_token));
+  };
+
+  React.useEffect(() => {
+    dispatch(setUsers(usernameValue, passwordValue));
+  }, [dispatch, usernameValue, passwordValue]);
+
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
-        onClose(false);
+        onClose();
       }
     },
     [onClose],
   );
   const clickListener = React.useCallback(
     (e) => {
-      if (
-        e.target.className &&
-        e.target.className === blockOutRef &&
-        blockOutRef.current.className
-      ) {
-        onClose(false);
+      if (e.target.className && e.target.className === blockOutRef.current.className) {
+        onClose();
       }
     },
     [blockOutRef, onClose],
@@ -37,7 +49,6 @@ const Login = ({ visibleForm, onSetVisible, onClose, blockOutRef }) => {
 
   return (
     <div
-      ref={popupRef}
       className={classNames('login', {
         show: visibleForm,
       })}>
@@ -48,14 +59,28 @@ const Login = ({ visibleForm, onSetVisible, onClose, blockOutRef }) => {
         </div>
         <form className="main-form">
           <div className="form-item">
-            <label htmlFor="email">Your E-mail</label>
-            <input name="email" type="text" />
+            <label htmlFor="name">Your Name</label>
+            <input
+              onChange={(e) => setUserName(e.target.value)}
+              value={usernameValue}
+              name="name"
+              type="text"
+              required
+            />
           </div>
           <div className="form-item">
             <label htmlFor="password">Your Password</label>
-            <input name="password" type="text" />
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              value={passwordValue}
+              name="password"
+              type="text"
+              required
+            />
           </div>
-          <Button>Send</Button>
+          <Button required onClick={() => onSend()} type="button">
+            Send
+          </Button>
         </form>
       </div>
     </div>

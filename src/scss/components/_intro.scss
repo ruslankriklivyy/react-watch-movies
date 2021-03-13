@@ -1,32 +1,19 @@
 .intro {
   position: relative;
   padding-top: 200px;
-  background-image: url(../../assets/images/popcorn.png);
-  background-position: bottom;
-  background-repeat: no-repeat;
   height: 100vh;
-  .carousel-wrapper {
-    width: 100%;
-  }
 
-  .rec-dot {
-    width: 50px;
-    height: 7px;
-    border-radius: 60px;
-    border: none;
-    background: #363636;
-    box-shadow: none !important;
-  }
-  .rec-carousel-item {
-    outline: none;
-    box-shadow: none;
-  }
-  .rec-carousel-item:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  .rec-dot_active {
-    background: #fbb124;
+  .slick-dots {
+    bottom: -40px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    li button:before {
+      color: #fff;
+      font-size: 12px;
+    }
+    .slick-active button:before {
+      color: #fbb124;
+    }
   }
   &__main {
     display: flex;
@@ -35,17 +22,20 @@
     flex-wrap: wrap;
   }
   &-top-movies {
-    display: flex;
-    align-items: center;
-    width: 50%;
+    width: 45%;
+
     &__item {
-      cursor: pointer;
+      padding: 0 15px;
+      position: relative;
       outline: none;
-      box-shadow: none;
+      cursor: pointer;
+      display: inline-block;
+      width: 290px !important;
+      margin: 0 auto;
     }
     img {
       border-radius: 45px;
-      width: 270px;
+      width: 95%;
       height: 430px;
     }
   }
@@ -62,7 +52,7 @@
       font-size: 18px;
       color: #fcb124;
       text-align: center;
-      border: 1px solid #fcb124;
+      border: 2px solid #fcb124;
       border-radius: 20px;
       transition: all 0.2s ease;
 

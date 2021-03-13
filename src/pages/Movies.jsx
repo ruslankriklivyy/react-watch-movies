@@ -1,9 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import scrollTo from '../utils/scrollTo';
 import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
-import { getMovies, getMoviesBySearch, getGenres } from '../redux/actions/movies';
+import {
+  getMovies,
+  getMoviesBySearch,
+  getGenres,
+  setChosenItem,
+  setMovieId,
+} from '../redux/actions/movies';
 import {
   filterByGenre,
   filterBySortType,
@@ -17,10 +22,16 @@ const sortBy = [
   { name: 'A-Z', type: 'title', order: 'asc' },
 ];
 
-const Movies = ({ onSetMovieId }) => {
+const Movies = () => {
   const dispatch = useDispatch();
-  const { items, genres, searchValue } = useSelector(({ movies }) => movies);
+  const { items, genres, searchValue, isLoading } = useSelector(({ movies }) => movies);
   const { sortType, genreId, currentPage, rateNumber } = useSelector(({ filters }) => filters);
+
+  const onSetMovieId = (id) => {
+    const item = items.results.filter((obj) => obj.id === id);
+    dispatch(setChosenItem(item));
+    dispatch(setMovieId(id));
+  };
 
   const onSelectRate = React.useCallback(
     (num) => {
@@ -67,11 +78,11 @@ const Movies = ({ onSetMovieId }) => {
   return (
     <div className="Movies">
       <Header onSearch={onSearchMovie} />
-      <Menu onSelectGenre={onSelectFilterGenre} items={genres && genres.genres} />
+      <Menu onSelectGenre={onSelectFilterGenre} items={genres && genres.length > 0 && genres} />
       <SortBy onSelectRate={onSelectRate} onSelectFilter={onSelectFilterByType} items={sortBy} />
       <div className="movies">
         <div className="container">
-          <MovieBlock setId={onSetMovieId} items={items.results} />
+          <MovieBlock isLoading={isLoading} setId={onSetMovieId} items={items.results} />
         </div>
       </div>
       <Paginator onSelectPage={onSelectPage} />

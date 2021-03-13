@@ -12,7 +12,7 @@
     align-items: center;
   }
   &-right {
-    width: 50%;
+    width: 35%;
     .slider {
       width: 320px;
       margin-left: auto;
@@ -62,7 +62,6 @@
   }
   &-menu {
     margin-top: 5px;
-    margin-left: 30px;
     display: flex;
     align-items: center;
     &__item {
@@ -92,8 +91,9 @@
   }
   &__title {
     font-weight: 700;
-    font-size: 28px;
+    font-size: 26px;
     color: #707070;
+    margin-right: 30px;
   }
   &-stars {
     display: flex;

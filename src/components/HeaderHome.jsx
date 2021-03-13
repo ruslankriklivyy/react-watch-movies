@@ -3,9 +3,10 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import logoPng from '../assets/images/logo.png';
+import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
 
-const HeaderHome = ({ items, token, onSetVisibleLogin, onSetVisibleRegistration }) => {
+const HeaderHome = ({ items, onSetVisibleLogin, token, sessionId }) => {
   const [activeItem, setActiveItem] = React.useState(0);
 
   const onSetActiveItem = (index, e) => {
@@ -36,10 +37,18 @@ const HeaderHome = ({ items, token, onSetVisibleLogin, onSetVisibleRegistration 
             </ul>
           </div>
           <div className="home-header-btns">
-            <Button onClick={() => onSetVisibleRegistration()}>Sign Up</Button>
-            <a href={`https://www.themoviedb.org/authenticate/${token && token.request_token}`}>
-              <Button onClick={() => onSetVisibleLogin()}>Login</Button>
-            </a>
+            {sessionId && sessionId.success ? (
+              <a href="https://www.themoviedb.org/settings/account?language=ru">
+                <img src={userSvg} alt="user svg" />
+              </a>
+            ) : (
+              <a
+                href={`https://www.themoviedb.org/authenticate/${
+                  token && token.request_token
+                }?redirect_to=http://www.yourapp.com/approved`}>
+                <Button>Login</Button>
+              </a>
+            )}
           </div>
         </div>
       </div>

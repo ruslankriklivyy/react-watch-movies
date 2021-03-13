@@ -13,9 +13,10 @@ import emptyStarSvg from '../assets/images/empty-star.svg';
 import fullStarSvg from '../assets/images/star-full.svg';
 
 const MovieItem = ({
+  onSetValueRate,
   credits,
   title,
-  genre,
+  genres,
   vote_average,
   overview,
   poster_path,
@@ -24,14 +25,13 @@ const MovieItem = ({
   trailer,
   vote_count,
   movieDetails,
-  onSetValueRate,
+  sessionId,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
-
   const newGenres = [];
-  if (genre !== null) {
+  if (genres.length > 0) {
     for (let i = 0; i < genre_ids.length; i++) {
-      const newItem = genre.genres.filter((item) => item.id === genre_ids[i]);
+      const newItem = genres.filter((item) => item.id === genre_ids[i]);
       newGenres.push(newItem[0]);
     }
   }
@@ -139,8 +139,9 @@ const MovieItem = ({
                   </span>
                 ))}
               </div>
+
               <div className="movie-watch__item-info-actor">
-                Cast:
+                <span>Cast:</span>
                 {credits.slice(0, 5).map((item) => (
                   <div className="movie-watch__item-actor">
                     <img
@@ -155,20 +156,26 @@ const MovieItem = ({
                   </div>
                 ))}
               </div>
-              <div className="movie-watch__item-rate">
-                <span className="movie-watch__item-rate-title">Rate movie: </span>
-                <ReactStars
-                  count={10}
-                  isHalf={true}
-                  onChange={setRateValue}
-                  size={30}
-                  value={vote_average}
-                  activeColor="#ffd700"
-                  emptyIcon={<img className="rate" src={emptyStarSvg} alt="star svg" />}
-                  halfIcon={<img className="rate" src={halfStarSvg} alt="star svg" />}
-                  filledIcon={<img className="rate" src={fullStarSvg} alt="star svg" />}
-                />
-              </div>
+              {sessionId && sessionId.success ? (
+                <div className="movie-watch__item-rate">
+                  <span className="movie-watch__item-rate-title">Rate movie: </span>
+                  <ReactStars
+                    count={10}
+                    isHalf={true}
+                    onChange={setRateValue}
+                    size={30}
+                    value={vote_average}
+                    activeColor="#ffd700"
+                    emptyIcon={<img className="rate" src={emptyStarSvg} alt="star svg" />}
+                    halfIcon={<img className="rate" src={halfStarSvg} alt="star svg" />}
+                    filledIcon={<img className="rate" src={fullStarSvg} alt="star svg" />}
+                  />
+                </div>
+              ) : (
+                <div className="movie-watch__item-info">
+                  <span>Log in to rate the movie</span>
+                </div>
+              )}
             </div>
           </div>
           <div className="movie-watch__item-about">

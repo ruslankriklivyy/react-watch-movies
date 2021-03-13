@@ -5,6 +5,13 @@ const instance = axios.create({
 });
 
 export const filmsAPI = {
+  getNowPlayingFilms() {
+    return instance
+      .get(`movie/now_playing?api_key=74d41124b9d3bafd09d832463dd78216`)
+      .then(({ data }) => {
+        return data;
+      });
+  },
   postRateMovie(id, value, sessionId) {
     return instance
       .post(
@@ -66,14 +73,25 @@ export const filmsAPI = {
 export const authAPI = {
   getUserToken() {
     return instance
-      .get(`/authentication/token/new?api_key=74d41124b9d3bafd09d832463dd78216`)
+      .get(`authentication/token/new?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });
   },
   getSessionId(token) {
     return instance
-      .post(`/authentication/session/new?api_key=74d41124b9d3bafd09d832463dd78216`, {
+      .post(`authentication/session/new?api_key=74d41124b9d3bafd09d832463dd78216`, {
+        request_token: token && token.request_token,
+      })
+      .then(({ data }) => {
+        return data;
+      });
+  },
+  createSessionLogin(username, password, token) {
+    return instance
+      .post(`authentication/token/validate_with_login?api_key=74d41124b9d3bafd09d832463dd78216`, {
+        username,
+        password,
         request_token: token,
       })
       .then(({ data }) => {
