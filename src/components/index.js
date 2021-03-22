@@ -7,6 +7,5 @@ export { default as Button } from './Button';
 export { default as Intro } from './Intro';
 export { default as Login } from './Login';
 export { default as Registration } from './Registration';
-export { default as MovieWatchItem } from './MovieWatchItem';
 export { default as Paginator } from './Paginator';
 export { default as Preloader } from './Preloader';

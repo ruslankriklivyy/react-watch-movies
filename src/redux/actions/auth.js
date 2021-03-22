@@ -6,8 +6,10 @@ const SET_USER = 'SET_USER';
 
 export const getToken = () => async (dispatch) => {
   const token = await authAPI.getUserToken();
-
-  dispatch(setToken(token));
+  if (token.request_token) {
+    const localToken = localStorage.getItem('token');
+    dispatch(setToken(JSON.parse(localToken)));
+  }
 };
 
 export const getUser = (username, password, token) => async (dispatch) => {
@@ -17,6 +19,7 @@ export const getUser = (username, password, token) => async (dispatch) => {
 
 export const getSessionId = (token) => async (dispatch) => {
   const sessionId = await authAPI.getSessionId(token);
+
   dispatch(setSessionId(sessionId));
 };
 

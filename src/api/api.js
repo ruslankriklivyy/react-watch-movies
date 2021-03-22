@@ -75,6 +75,7 @@ export const authAPI = {
     return instance
       .get(`authentication/token/new?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
+        localStorage.setItem('token', JSON.stringify(data));
         return data;
       });
   },

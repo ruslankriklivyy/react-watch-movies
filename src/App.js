@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import {
   setMovieId,
   setChosenItem,
@@ -75,9 +75,9 @@ function App() {
     dispatch(getMovieDetails(movieId));
   }, [dispatch, movieId]);
 
-  React.useEffect(() => {
-    dispatch(getSessionId(token));
-  }, [dispatch, token]);
+  // React.useEffect(() => {
+  //   dispatch(getSessionId(token));
+  // }, [dispatch, token]);
 
   React.useEffect(() => {
     dispatch(getTrailerById(movieId));

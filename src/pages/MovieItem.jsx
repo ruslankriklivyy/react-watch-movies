@@ -139,9 +139,8 @@ const MovieItem = ({
                   </span>
                 ))}
               </div>
-
               <div className="movie-watch__item-info-actor">
-                <span>Cast:</span>
+                <div>Cast:</div>
                 {credits.slice(0, 5).map((item) => (
                   <div className="movie-watch__item-actor">
                     <img

@@ -5,13 +5,33 @@ import { Link } from 'react-router-dom';
 import logoPng from '../assets/images/logo.png';
 import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
+import { useDispatch } from 'react-redux';
+import { getSessionId, getToken, setToken } from '../redux/actions/auth';
 
 const HeaderHome = ({ items, onSetVisibleLogin, token, sessionId }) => {
   const [activeItem, setActiveItem] = React.useState(0);
+  const dispatch = useDispatch();
 
   const onSetActiveItem = (index, e) => {
     setActiveItem(index);
   };
+
+  const getAccess = () => {
+    const localToken = localStorage.getItem('token');
+
+    dispatch(setToken(JSON.parse(localToken)));
+  };
+
+  React.useEffect(() => {
+    const localToken = localStorage.getItem('token');
+    const localSessionId = localStorage.getItem('session_id');
+    const sesId = JSON.parse(localSessionId);
+    if (localToken) {
+      // dispatch(getToken());
+    } else {
+      // dispatch(setToken(JSON.parse(localToken)));
+    }
+  }, [sessionId, token, dispatch]);
 
   return (
     <div className="home-header">
@@ -38,14 +58,13 @@ const HeaderHome = ({ items, onSetVisibleLogin, token, sessionId }) => {
           </div>
           <div className="home-header-btns">
             {sessionId && sessionId.success ? (
-              <a href="https://www.themoviedb.org/settings/account?language=ru">
+              <span>
                 <img src={userSvg} alt="user svg" />
-              </a>
+              </span>
             ) : (
               <a
-                href={`https://www.themoviedb.org/authenticate/${
-                  token && token.request_token
-                }?redirect_to=http://www.yourapp.com/approved`}>
+                onClick={getAccess}
+                href={`https://www.themoviedb.org/authenticate/${token && token.request_token}`}>
                 <Button>Login</Button>
               </a>
             )}
