@@ -14,7 +14,7 @@ import {
   filterBySortType,
   setCurrentPage,
   filterByRate,
-} from '../redux/actions/filters';
+} from '../redux/actions/filters.ts';
 const sortBy = [
   { name: 'Latest', type: 'primary_release_date', order: 'desc' },
   { name: 'Popular', type: 'popularity', order: 'desc' },

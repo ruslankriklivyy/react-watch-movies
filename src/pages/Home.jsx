@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNowFilms } from '../redux/actions/movies';
-import { getToken } from '../redux/actions/auth';
+import { getToken } from '../redux/actions/auth.ts';
 import { HeaderHome, Intro, Login, Registration } from '../components';
 
 const links = ['Home', 'Watch Movies!'];

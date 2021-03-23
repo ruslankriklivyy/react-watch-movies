@@ -6,7 +6,7 @@ import logoPng from '../assets/images/logo.png';
 import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
 import { useDispatch } from 'react-redux';
-import { getSessionId, getToken, setToken } from '../redux/actions/auth';
+import { getSessionId, getToken, setToken } from '../redux/actions/auth.ts';
 
 const HeaderHome = ({ items, onSetVisibleLogin, token, sessionId }) => {
   const [activeItem, setActiveItem] = React.useState(0);

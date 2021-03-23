@@ -8,11 +8,18 @@ const initialState = {
   sessionId: null,
 };
 
+type initialStateType = {
+  user: object;
+  userId: null | number;
+  token: null | string;
+  sessionId: null | string;
+};
+
 const GET_TOKEN = 'GET_TOKEN';
 const GET_SESSION_ID = 'GET_SESSION_ID';
 const SET_USER = 'SET_USER';
 
-const auth = (state = initialState, action) => {
+const auth = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case GET_TOKEN:
       return {

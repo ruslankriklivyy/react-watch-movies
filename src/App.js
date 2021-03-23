@@ -75,10 +75,6 @@ function App() {
     dispatch(getMovieDetails(movieId));
   }, [dispatch, movieId]);
 
-  // React.useEffect(() => {
-  //   dispatch(getSessionId(token));
-  // }, [dispatch, token]);
-
   React.useEffect(() => {
     dispatch(getTrailerById(movieId));
   }, [dispatch, movieId]);

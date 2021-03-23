@@ -31,9 +31,10 @@ const Intro = ({ items, setId }) => {
             <h1 className="intro__title">Popcorn, please!</h1>
             <Link to={'/watchmovies'}>Start Watching</Link>
           </div>
+          {console.log(items.results)}
           <div className="intro-top-movies">
             <Slider {...settings}>
-              {items &&
+              {items.results &&
                 items.results.slice(0, 4).map((item) => (
                   <Link
                     to={`/watchmovies/${item.id}`}

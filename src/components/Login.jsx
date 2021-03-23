@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { setUsers } from '../redux/actions/auth';
+import { setUsers } from '../redux/actions/auth.ts';
 import { Button } from './';
-import { getUser } from '../redux/actions/auth';
+import { getUser } from '../redux/actions/auth.ts';
 
 import { useDispatch, useSelector } from 'react-redux';
 import cancelSvg from '../assets/images/close.svg';

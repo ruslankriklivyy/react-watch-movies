@@ -1,13 +1,15 @@
 const initialState = {
   sortType: {
-    type: 'primary_release_date',
-    order: 'desc',
+    type: 'primary_release_date' as string,
+    order: 'desc' as string,
   },
-  genreId: 28,
-  currentPage: 1,
-  totalPages: 0,
-  rateNumber: 5,
+  genreId: 28 as number,
+  currentPage: 1 as number,
+  totalPages: 0 as number,
+  rateNumber: 5 as number,
 };
+
+type initialState = typeof initialState;
 
 const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
@@ -15,7 +17,7 @@ const SET_PAGE = 'SET_PAGE';
 const FILTER_BY_RATE = 'FILTER_BY_RATE';
 const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 
-const filters = (state = initialState, action) => {
+const filters = (state = initialState, action: any): initialState => {
   switch (action.type) {
     case FILTER_BY_SORT_TYPE:
       return {
@@ -26,7 +28,7 @@ const filters = (state = initialState, action) => {
     case SET_TOTAL_PAGES:
       return {
         ...state,
-        totalPages: action.paylaod,
+        totalPages: action.payload,
       };
 
     case FILTER_BY_RATE:
