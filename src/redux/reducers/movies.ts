@@ -124,7 +124,7 @@ const initialState = {
   nowPlayingFilms: [] as Array<NowPlayingFilmsType>,
   movieDetails: [] as Array<MovieDetails>,
   chosenItem: [] as Array<MoviesResult>,
-  searchValue: '',
+  searchValue: '' as string,
   isLoading: false as boolean,
   movieId: null as number | null,
   genres: null as Array<GenresType> | null,

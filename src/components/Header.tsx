@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 
 import SearchMovie from './SearchMovie';
 
-const Header = React.memo(function Header({ onSearch }) {
+type HeaderPropsType = {
+  onSearch: (text: string) => string;
+};
+
+const Header: React.FC<HeaderPropsType> = React.memo(function Header({ onSearch }) {
   return (
     <header className="header">
       <div className="container">

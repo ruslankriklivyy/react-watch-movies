@@ -22,10 +22,6 @@ const Home = ({ token, sessionId, setId }) => {
     dispatch(getNowFilms());
   }, [dispatch]);
 
-  // React.useEffect(() => {
-  //   dispatch(getToken());
-  // }, [dispatch]);
-
   const onCloseLogin = () => {
     setVisibleLoginForm(false);
   };
