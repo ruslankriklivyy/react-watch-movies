@@ -1,18 +1,31 @@
-import * as axios from 'axios';
+import axios from 'axios';
+import {
+  SessionId,
+  SortBy,
+  NowPlayingFilmsType,
+  ItemsType,
+  MovieDetails,
+  Token,
+  GenresType,
+  CreditsType,
+  TrailerByIdType,
+  RateMovieType,
+  SortByTypeType,
+} from '../types/types';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
 });
 
 export const filmsAPI = {
-  getNowPlayingFilms() {
+  getNowPlayingFilms(): Promise<NowPlayingFilmsType> {
     return instance
       .get(`movie/now_playing?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });
   },
-  postRateMovie(id, value, sessionId) {
+  postRateMovie(id: number, value: number, sessionId: SessionId): Promise<RateMovieType> {
     return instance
       .post(
         `movie/${id}/rating?api_key=74d41124b9d3bafd09d832463dd78216&session_id=${
@@ -26,7 +39,13 @@ export const filmsAPI = {
         return data;
       });
   },
-  getPopularFilms(sortType, genreId, searchValue, page, rateNumber) {
+  getPopularFilms(
+    sortType: SortByTypeType,
+    genreId: number,
+    searchValue: string,
+    page: number,
+    rateNumber: number,
+  ): Promise<ItemsType> {
     return instance
       .get(
         `${
@@ -40,28 +59,28 @@ export const filmsAPI = {
         return data;
       });
   },
-  getDetails(movieId) {
+  getDetails(movieId: number): Promise<MovieDetails> {
     return instance
       .get(`movie/${movieId}?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });
   },
-  getGenresFilms() {
+  getGenresFilms(): Promise<GenresType> {
     return instance
       .get(`genre/movie/list?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });
   },
-  getCreditsFilms(id) {
+  getCreditsFilms(id: number): Promise<CreditsType> {
     return instance
       .get(`movie/${id}/credits?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
         return data;
       });
   },
-  getTrailer(id) {
+  getTrailer(id: number): Promise<TrailerByIdType> {
     return instance
       .get(`movie/${id}/videos?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
@@ -79,7 +98,7 @@ export const authAPI = {
         return data;
       });
   },
-  getSessionId(token) {
+  getSessionId(token: Token): Promise<any> {
     return instance
       .post(`authentication/session/new?api_key=74d41124b9d3bafd09d832463dd78216`, {
         request_token: token && token.request_token,
@@ -88,7 +107,7 @@ export const authAPI = {
         return data;
       });
   },
-  createSessionLogin(username, password, token) {
+  createSessionLogin(username: string, password: string, token: string): Promise<any> {
     return instance
       .post(`authentication/token/validate_with_login?api_key=74d41124b9d3bafd09d832463dd78216`, {
         username,

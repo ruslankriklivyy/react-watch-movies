@@ -11,8 +11,35 @@ import closeSvg from '../assets/images/closeVideo.svg';
 import halfStarSvg from '../assets/images/star-half.svg';
 import emptyStarSvg from '../assets/images/empty-star.svg';
 import fullStarSvg from '../assets/images/star-full.svg';
+import {
+  CreditsType,
+  GenresItemType,
+  MovieDetails,
+  SessionId,
+  TrailerByIdType,
+} from '../types/types';
 
-const MovieItem = ({
+type newGenresType = {
+  name: string;
+};
+
+type MovieItemType = {
+  onSetValueRate: (val: string) => void;
+  credits: CreditsType;
+  title: string;
+  genres: Array<GenresItemType>;
+  vote_average: number;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  genre_ids: Array<number>;
+  trailer: TrailerByIdType;
+  vote_count: number;
+  movieDetails: MovieDetails;
+  sessionId: SessionId;
+};
+
+const MovieItem: React.FC<MovieItemType> = ({
   onSetValueRate,
   credits,
   title,
@@ -28,19 +55,19 @@ const MovieItem = ({
   sessionId,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
-  const newGenres = [];
-  if (genres.length > 0) {
+  const newGenres: Array<newGenresType> = [];
+  if (genres && genres.length > 0) {
     for (let i = 0; i < genre_ids.length; i++) {
-      const newItem = genres.filter((item) => item.id === genre_ids[i]);
+      const newItem = genres.filter((item: GenresItemType) => item.id === genre_ids[i]);
       newGenres.push(newItem[0]);
     }
   }
 
-  const setRateValue = (val) => {
+  const setRateValue = (val: string) => {
     onSetValueRate(val);
   };
 
-  const blockOutRef = React.useRef();
+  const blockOutRef = React.useRef<HTMLDivElement>(null);
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
@@ -51,7 +78,11 @@ const MovieItem = ({
   );
   const clickListener = React.useCallback(
     (e) => {
-      if (e.target.className && e.target.className === blockOutRef.current.className) {
+      if (
+        e.target.className &&
+        blockOutRef.current &&
+        e.target.className === blockOutRef.current.className
+      ) {
         setVisibleTrailer(false);
       }
     },
@@ -90,8 +121,8 @@ const MovieItem = ({
               <img src={closeSvg} alt="close svg" />
             </span>
             <iframe
-              frameborder="0"
-              allowfullscreen
+              data-frameborder="0"
+              data-allowfullscreen
               title="trailer"
               width="468"
               height="460"
@@ -141,19 +172,20 @@ const MovieItem = ({
               </div>
               <div className="movie-watch__item-info-actor">
                 <div>Cast:</div>
-                {credits.slice(0, 5).map((item) => (
-                  <div className="movie-watch__item-actor">
-                    <img
-                      src={
-                        item.profile_path !== null
-                          ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
-                          : defaultUser
-                      }
-                      alt="actor img"
-                    />
-                    <span>{item.name}</span>
-                  </div>
-                ))}
+                {credits &&
+                  credits.cast.slice(0, 5).map((item) => (
+                    <div className="movie-watch__item-actor">
+                      <img
+                        src={
+                          item.profile_path !== null
+                            ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+                            : defaultUser
+                        }
+                        alt="actor img"
+                      />
+                      <span>{item.name}</span>
+                    </div>
+                  ))}
               </div>
               {sessionId && sessionId.success ? (
                 <div className="movie-watch__item-rate">

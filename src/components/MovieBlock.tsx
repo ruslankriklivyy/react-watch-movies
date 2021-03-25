@@ -4,8 +4,15 @@ import MovieBlockLoader from './MovieBlockLoader';
 import starSvg from '../assets/images/star.svg';
 import voteCount from '../assets/images/review.svg';
 import defaultMovie from '../assets/images/default-movie.jpg';
+import { MoviesResult } from '../types/types';
 
-const MovieBlock = ({ items, setId, isLoading }) => {
+type MovieBlockType = {
+  items: Array<MoviesResult>;
+  setId: (id: number) => void;
+  isLoading: boolean;
+};
+
+const MovieBlock: React.FC<MovieBlockType> = ({ items, setId, isLoading }) => {
   return (
     <div className="movies-block">
       {isLoading

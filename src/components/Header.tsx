@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchMovie from './SearchMovie';
 
 type HeaderPropsType = {
-  onSearch: (text: string) => string;
+  onSearch: (text: string) => void;
 };
 
 const Header: React.FC<HeaderPropsType> = React.memo(function Header({ onSearch }) {

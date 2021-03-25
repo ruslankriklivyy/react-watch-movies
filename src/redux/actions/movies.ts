@@ -1,6 +1,19 @@
 import { filmsAPI } from '../../api/api';
 import { setTotalPages } from './filters';
 import { Dispatch } from 'redux';
+import {
+  SessionId,
+  SortBy,
+  NowPlayingFilmsType,
+  TrailerByIdType,
+  RateMovieType,
+  CreditsType,
+  MovieDetails,
+  GenresType,
+  MoviesResult,
+  ItemsType,
+  SortByTypeType,
+} from '../../types/types';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -18,7 +31,7 @@ const SET_NOW_FILMS = 'SET_NOW_FILMS';
 export const getMovies = (
   genreId: number,
   page: number,
-  sortType: object,
+  sortType: SortByTypeType,
   searchValue: string,
   rateNumber: number,
 ) => async (dispatch: Dispatch): Promise<void> => {
@@ -29,7 +42,7 @@ export const getMovies = (
   dispatch(setIsLoading(false));
 };
 
-export const postRateById = (id: number, value: number, sessionId: string) => async (
+export const postRateById = (id: number, value: number, sessionId: SessionId) => async (
   dispatch: Dispatch,
 ) => {
   const data = await filmsAPI.postRateMovie(id, value, sessionId);
@@ -38,12 +51,12 @@ export const postRateById = (id: number, value: number, sessionId: string) => as
 
 export const getGenres = () => async (dispatch: Dispatch): Promise<void> => {
   const genres = await filmsAPI.getGenresFilms();
-  dispatch(getFilmsByGenres(genres.genres));
+  dispatch(getFilmsByGenres(genres));
 };
 
 export const getCredits = (id: number) => async (dispatch: Dispatch) => {
   const casts = await filmsAPI.getCreditsFilms(id);
-  dispatch(setCredits(casts.cast));
+  dispatch(setCredits(casts));
 };
 
 export const getMovieDetails = (movieId: number) => async (dispatch: Dispatch) => {
@@ -63,60 +76,60 @@ export const getNowFilms = () => async (dispatch: Dispatch) => {
 
 type setNowFilmsType = {
   type: typeof SET_NOW_FILMS;
-  payload: object;
+  payload: NowPlayingFilmsType;
 };
 
-export const setNowMovies = (data: object): setNowFilmsType => ({
+export const setNowMovies = (data: NowPlayingFilmsType): setNowFilmsType => ({
   type: SET_NOW_FILMS,
   payload: data,
 });
 
 type setRateMovieType = {
   type: typeof SET_RATE_MOVIE;
-  payload: object;
+  payload: RateMovieType;
 };
 
-export const setRateMovie = (data: object): setRateMovieType => ({
+export const setRateMovie = (data: RateMovieType): setRateMovieType => ({
   type: SET_RATE_MOVIE,
   payload: data,
 });
 
 type setValueRateType = {
   type: typeof SET_RATE_VALUE;
-  payload: string;
+  payload: number;
 };
 
-export const setValueRate = (value: string): setValueRateType => ({
+export const setValueRate = (value: number): setValueRateType => ({
   type: SET_RATE_VALUE,
   payload: value,
 });
 
 type setCreditsType = {
   type: typeof SET_CREDITS;
-  payload: object;
+  payload: CreditsType;
 };
 
-export const setCredits = (casts: object): setCreditsType => ({
+export const setCredits = (casts: CreditsType): setCreditsType => ({
   type: SET_CREDITS,
   payload: casts,
 });
 
 type setMovieDetailsType = {
   type: typeof SET_MOVIE_DETAILS;
-  payload: object;
+  payload: MovieDetails;
 };
 
-export const setMovieDetails = (movie: object): setMovieDetailsType => ({
+export const setMovieDetails = (movie: MovieDetails): setMovieDetailsType => ({
   type: SET_MOVIE_DETAILS,
   payload: movie,
 });
 
 type setTrailerByIdType = {
   type: typeof SET_TRAILER;
-  payload: string;
+  payload: TrailerByIdType;
 };
 
-export const setTrailerById = (trailer: string): setTrailerByIdType => ({
+export const setTrailerById = (trailer: TrailerByIdType): setTrailerByIdType => ({
   type: SET_TRAILER,
   payload: trailer,
 });
@@ -133,20 +146,20 @@ export const getMoviesBySearch = (text: string): getMoviesBySearchType => ({
 
 type getFilmsByGenresType = {
   type: typeof GET_GENRES;
-  genres: object;
+  genres: GenresType;
 };
 
-export const getFilmsByGenres = (genres: object): getFilmsByGenresType => ({
+export const getFilmsByGenres = (genres: GenresType): getFilmsByGenresType => ({
   type: GET_GENRES,
   genres,
 });
 
 type setChosenItemType = {
   type: typeof SET_CHOSEN_ITEM;
-  payload: Array<object>;
+  payload: Array<MoviesResult>;
 };
 
-export const setChosenItem = (item: Array<object>): setChosenItemType => ({
+export const setChosenItem = (item: Array<MoviesResult>): setChosenItemType => ({
   type: SET_CHOSEN_ITEM,
   payload: item,
 });
@@ -173,10 +186,24 @@ const setIsLoading = (isLoading: boolean): setIsLoadingType => ({
 
 type setMoviesType = {
   type: typeof SET_MOVIES;
-  payload: object;
+  payload: ItemsType;
 };
 
-const setMovies = (items: object): setMoviesType => ({
+const setMovies = (items: ItemsType): setMoviesType => ({
   type: SET_MOVIES,
   payload: items,
 });
+
+export type ActionTypes =
+  | setMoviesType
+  | setIsLoadingType
+  | setMovieIdType
+  | setChosenItemType
+  | getFilmsByGenresType
+  | getMoviesBySearchType
+  | setTrailerByIdType
+  | setMovieDetailsType
+  | setCreditsType
+  | setValueRateType
+  | setRateMovieType
+  | setNowFilmsType;

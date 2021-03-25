@@ -9,18 +9,18 @@ export const getToken = () => async (dispatch: Dispatch) => {
   const token = await authAPI.getUserToken();
 };
 
-export const getUser = (username: string, password: number, token: string) => async (
+export const getUser = (username: string, password: string, token: string) => async (
   dispatch: Dispatch,
 ) => {
   const data = await authAPI.createSessionLogin(username, password, token);
   dispatch(setUsers(data.username, data.password));
 };
 
-export const getSessionId = (token: string) => async (dispatch: Dispatch) => {
-  const sessionId = await authAPI.getSessionId(token);
+// export const getSessionId = (token: string) => async (dispatch: Dispatch) => {
+//   const sessionId = await authAPI.getSessionId(token);
 
-  dispatch(setSessionId(sessionId));
-};
+//   dispatch(setSessionId(sessionId));
+// };
 
 type setUsersType = {
   type: typeof SET_USER;

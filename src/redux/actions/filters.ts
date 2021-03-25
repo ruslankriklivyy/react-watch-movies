@@ -6,10 +6,18 @@ const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 
 type FilterBySortTypeType = {
   type: typeof FILTER_BY_SORT_TYPE;
-  payload: object;
+  payload: {
+    name: string;
+    type: string;
+    order: string;
+  };
 };
 
-export const filterBySortType = (obj: object): FilterBySortTypeType => ({
+export const filterBySortType = (obj: {
+  name: string;
+  type: string;
+  order: string;
+}): FilterBySortTypeType => ({
   type: FILTER_BY_SORT_TYPE,
   payload: obj,
 });
@@ -53,3 +61,10 @@ export const filterByGenre = (genre: number): FilterByGenreType => ({
   type: FILTER_BY_GENRE,
   payload: genre,
 });
+
+export type ActionTypes =
+  | FilterByGenreType
+  | SetCurrentPageType
+  | FilterByRateType
+  | SetTotalPagesType
+  | FilterBySortTypeType;

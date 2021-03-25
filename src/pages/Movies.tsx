@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import scrollTo from '../utils/scrollTo';
+import { SortByTypeType } from '../types/types';
 import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
+import { RootState } from '../redux/reducers/index';
 import {
   getMovies,
   getMoviesBySearch,
@@ -14,7 +16,7 @@ import {
   filterBySortType,
   setCurrentPage,
   filterByRate,
-} from '../redux/actions/filters.ts';
+} from '../redux/actions/filters';
 const sortBy = [
   { name: 'Latest', type: 'primary_release_date', order: 'desc' },
   { name: 'Popular', type: 'popularity', order: 'desc' },
@@ -24,10 +26,14 @@ const sortBy = [
 
 const Movies = () => {
   const dispatch = useDispatch();
-  const { items, genres, searchValue, isLoading } = useSelector(({ movies }) => movies);
-  const { sortType, genreId, currentPage, rateNumber } = useSelector(({ filters }) => filters);
+  const { items, genres, searchValue, isLoading } = useSelector((state: RootState) => {
+    return state.movies;
+  });
+  const { sortType, genreId, currentPage, rateNumber } = useSelector((state: RootState) => {
+    return state.filters;
+  });
 
-  const onSetMovieId = (id) => {
+  const onSetMovieId = (id: number) => {
     const item = items.results.filter((obj) => obj.id === id);
     dispatch(setChosenItem(item));
     dispatch(setMovieId(id));
@@ -45,7 +51,7 @@ const Movies = () => {
   }, [sortType, searchValue, currentPage, genreId, rateNumber, dispatch]);
 
   React.useEffect(() => {
-    dispatch(getGenres(sortType));
+    dispatch(getGenres());
   }, [dispatch, sortType]);
 
   const onSearchMovie = React.useCallback(
@@ -62,15 +68,16 @@ const Movies = () => {
     [dispatch],
   );
 
-  const onSelectPage = (page) => {
+  const onSelectPage = (page: number) => {
     dispatch(setCurrentPage(page));
     scrollTo();
   };
 
-  const onSelectFilterByType = React.useCallback(
-    (index) => {
-      const sortType = index !== null ? sortBy[index] : '';
-      dispatch(filterBySortType(sortType));
+  const onSelectFilterByType: (index: number) => void = React.useCallback(
+    (index: number) => {
+      if (index !== null) {
+        dispatch(filterBySortType(sortBy[index]));
+      }
     },
     [dispatch],
   );
@@ -78,7 +85,7 @@ const Movies = () => {
   return (
     <div className="Movies">
       <Header onSearch={onSearchMovie} />
-      <Menu onSelectGenre={onSelectFilterGenre} items={genres && genres.length > 0 && genres} />
+      <Menu onSelectGenre={onSelectFilterGenre} items={genres && genres.genres} />
       <SortBy onSelectRate={onSelectRate} onSelectFilter={onSelectFilterByType} items={sortBy} />
       <div className="movies">
         <div className="container">

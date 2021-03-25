@@ -2,19 +2,39 @@ import React from 'react';
 import Slider from 'react-rangeslider';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers/index';
 import 'react-rangeslider/lib/index.css';
+import { SortByTypeType } from '../types/types';
 
 import starSvg from '../assets/images/star.svg';
 
-const SortBy = React.memo(function SortBy({ items, onSelectFilter, onSelectRate }) {
-  const { sortType, rateNumber } = useSelector(({ filters }) => filters);
+// type SortByObjType = {
+//   name: string;
+//   type: string;
+//   order: string;
+// };
 
-  const onSetActiveItem = (index, e) => {
+type SortByType = {
+  items: Array<SortByTypeType>;
+  onSelectFilter: (index: number) => void;
+  onSelectRate: (val: number) => void;
+};
+
+const SortBy: React.FC<SortByType> = React.memo(function SortBy({
+  items,
+  onSelectFilter,
+  onSelectRate,
+}) {
+  const { sortType, rateNumber } = useSelector((state: RootState) => {
+    return state.filters;
+  });
+
+  const onSetActiveItem = (index: number, e: React.MouseEvent) => {
     e.preventDefault();
     onSelectFilter(index);
   };
 
-  const handleChange = (val) => {
+  const handleChange = (val: number) => {
     onSelectRate(val);
   };
 

@@ -1,8 +1,10 @@
+import { ActionTypes } from '../actions/movies';
+
 type MoviesResult = {
   adult: boolean;
   backdrop_path: string;
   id: number;
-  genre_ids: Array<string>;
+  genre_ids: Array<number>;
   original_language: string;
   original_title: string;
   overview: string;
@@ -22,12 +24,22 @@ type ItemsType = {
   total_results: number;
 };
 
+type NowPlayingFilmsDatesType = {
+  maximum: string;
+  minimum: string;
+};
+
 type NowPlayingFilmsType = {
-  dates: object;
+  dates: NowPlayingFilmsDatesType;
   page: number;
-  results: Array<ItemsType>;
+  results: Array<MoviesResult>;
   total_pages: number;
   total_results: number;
+};
+
+type RateMovieType = {
+  status_code: number;
+  status_message: string;
 };
 
 type BelongsToCollectionType = {
@@ -38,6 +50,10 @@ type BelongsToCollectionType = {
 };
 
 type GenresType = {
+  genres: Array<GenresItemType>;
+};
+
+type GenresItemType = {
   id: number;
   name: string;
 };
@@ -63,7 +79,7 @@ type SpokenLanguages = {
 type MovieDetails = {
   adult: boolean;
   belongs_to_collection: Array<BelongsToCollectionType>;
-  genres: Array<GenresType>;
+  genres: Array<GenresItemType>;
   production_companies: Array<ProductionCompanies>;
   production_contries: Array<ProductionContries>;
   spoken_languages: Array<SpokenLanguages>;
@@ -105,6 +121,26 @@ type TrailerByIdType = {
 };
 
 type CreditsType = {
+  id: number;
+  cast: Array<CreditsCastsType>;
+  crew: Array<CreditsCrewType>;
+};
+
+type CreditsCrewType = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  credit_id: number;
+  department: string;
+  job: string;
+};
+
+type CreditsCastsType = {
   adult: boolean;
   gender: number;
   id: number;
@@ -120,18 +156,18 @@ type CreditsType = {
 };
 
 const initialState = {
-  items: [] as Array<ItemsType>,
-  nowPlayingFilms: [] as Array<NowPlayingFilmsType>,
-  movieDetails: [] as Array<MovieDetails>,
+  items: {} as ItemsType,
+  nowPlayingFilms: {} as NowPlayingFilmsType,
+  movieDetails: {} as MovieDetails,
   chosenItem: [] as Array<MoviesResult>,
   searchValue: '' as string,
   isLoading: false as boolean,
-  movieId: null as number | null,
-  genres: null as Array<GenresType> | null,
-  trailerById: [] as Array<TrailerByIdType>,
-  credits: [] as Array<CreditsType>,
-  statusRate: null as number | null,
-  rateValue: null as number | null,
+  movieId: 0 as number,
+  genres: {} as GenresType,
+  trailerById: {} as TrailerByIdType,
+  credits: {} as CreditsType,
+  statusRate: null as RateMovieType | null,
+  rateValue: 5 as number,
 };
 
 type initialState = typeof initialState;
@@ -149,7 +185,7 @@ const SET_RATE_MOVIE = 'SET_RATE_MOVIE';
 const SET_RATE_VALUE = 'SET_RATE_VALUE';
 const SET_NOW_FILMS = 'SET_NOW_FILMS';
 
-const movies = (state = initialState, action: any): initialState => {
+const movies = (state = initialState, action: ActionTypes): initialState => {
   switch (action.type) {
     case SET_MOVIES:
       return {

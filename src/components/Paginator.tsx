@@ -1,14 +1,21 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers/index';
 
 import createPages from '../utils/createPages';
 
-const Paginator = ({ onSelectPage }) => {
-  const { currentPage, totalPages } = useSelector(({ filters }) => filters);
+type PaginatorType = {
+  onSelectPage: (num: number) => void;
+};
+
+const Paginator: React.FC<PaginatorType> = ({ onSelectPage }) => {
+  const { currentPage, totalPages } = useSelector((state: RootState) => {
+    return state.filters;
+  });
   const perPage = 5;
   const countPages = Math.ceil(totalPages / perPage);
-  const pages = [];
+  const pages: Array<number> = [];
   createPages(pages, countPages, currentPage);
 
   return (

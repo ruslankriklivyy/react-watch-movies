@@ -2,15 +2,25 @@ import React from 'react';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNowFilms } from '../redux/actions/movies';
-import { getToken } from '../redux/actions/auth.ts';
+import { getToken } from '../redux/actions/auth';
+import { RootState } from '../redux/reducers/index';
 import { HeaderHome, Intro, Login, Registration } from '../components';
+import { SessionId } from '../types/types';
 
 const links = ['Home', 'Watch Movies!'];
 
-const Home = ({ token, sessionId, setId }) => {
+type HomeType = {
+  token: string;
+  sessionId: SessionId;
+  setId: (id: number) => void;
+};
+
+const Home: React.FC<HomeType> = ({ token, sessionId, setId }) => {
   const dispatch = useDispatch();
-  const { nowPlayingFilms } = useSelector(({ movies }) => movies);
-  const blockOutRef = React.useRef();
+  const nowPlayingFilms = useSelector((state: RootState) => {
+    return state.movies.nowPlayingFilms;
+  });
+  const blockOutRef = React.useRef(null);
   const [visibleLoginForm, setVisibleLoginForm] = React.useState(false);
   const [visibleRegistrationForm, setVisibleRegistrationForm] = React.useState(false);
 
@@ -45,7 +55,7 @@ const Home = ({ token, sessionId, setId }) => {
         sessionId={sessionId}
         items={links}
         onSetVisibleLogin={onSetVisibleLoginForm}
-        onSetVisibleRegistration={onSetRegistrationForm}
+        // onSetVisibleRegistration={onSetRegistrationForm}
       />
       <Intro setId={setId} items={nowPlayingFilms} />
       {/* <Login

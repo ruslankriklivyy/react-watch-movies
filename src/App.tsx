@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import {
   setMovieId,
   setChosenItem,
@@ -12,7 +12,7 @@ import {
   postRateById,
   setValueRate,
 } from './redux/actions/movies';
-import { getSessionId } from './redux/actions/auth';
+import { RootState } from './redux/reducers/index';
 import { Preloader } from './components';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -31,13 +31,18 @@ function App() {
     genres,
     chosenItem,
     movieId,
-    reviews,
     rateValue,
-  } = useSelector(({ movies }) => movies);
-  const rateNumber = useSelector(({ filters }) => filters.rateNumber);
-  const { token, sessionId } = useSelector(({ auth }) => auth);
-  const onSetMovieId = (id) => {
-    if (items.length > 0) {
+  } = useSelector((state: RootState) => {
+    return state.movies;
+  });
+  const rateNumber = useSelector((state: RootState) => {
+    return state.filters.rateNumber;
+  });
+  const { token, sessionId } = useSelector((state: RootState) => {
+    return state.auth;
+  });
+  const onSetMovieId = (id: number) => {
+    if (items && items.results) {
       const item = items.results.filter((obj) => obj.id === id);
       dispatch(setChosenItem(item));
       dispatch(setMovieId(id));
@@ -84,14 +89,14 @@ function App() {
   }, [movieId, dispatch]);
 
   React.useEffect(() => {
-    dispatch(getGenres(chosenItem));
-  }, [chosenItem, dispatch]);
+    dispatch(getGenres());
+  }, [dispatch]);
 
   React.useEffect(() => {
     const localStorageIdRef = localStorage.getItem('chosenItemId');
     const localStorageSearchInput = localStorage.getItem('searchInput');
 
-    if (localStorageSearchInput) {
+    if (localStorageIdRef && localStorageSearchInput) {
       dispatch(setMovieId(JSON.parse(localStorageIdRef)));
       dispatch(getMoviesBySearch(JSON.parse(localStorageSearchInput)));
     }
@@ -112,11 +117,7 @@ function App() {
         />
       </React.Suspense>
       <React.Suspense fallback={<Preloader />}>
-        <Route
-          exact
-          path="/watchmovies"
-          render={() => <Movies movieId={movieId} onSetMovieId={onSetMovieId} />}
-        />
+        <Route exact path="/watchmovies" render={() => <Movies />} />
       </React.Suspense>
       <React.Suspense fallback={<Preloader />}>
         <Route
@@ -125,11 +126,10 @@ function App() {
             <MovieItem
               sessionId={sessionId}
               onSetValueRate={onSetValueRate}
-              reviews={reviews}
               movieDetails={movieDetails}
               trailer={trailerById}
               credits={credits}
-              genres={genres}
+              genres={genres.genres}
               {...chosenItem[0]}
             />
           )}
