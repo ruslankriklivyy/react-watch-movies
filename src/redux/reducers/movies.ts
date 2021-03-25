@@ -170,7 +170,7 @@ const initialState = {
   rateValue: 5 as number,
 };
 
-type initialState = typeof initialState;
+export type initialState = typeof initialState;
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';

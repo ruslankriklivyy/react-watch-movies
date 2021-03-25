@@ -14,6 +14,8 @@ import {
   ItemsType,
   SortByTypeType,
 } from '../../types/types';
+import { ThunkAction } from 'redux-thunk';
+import { initialState } from '../reducers/movies';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -28,13 +30,15 @@ const SET_RATE_MOVIE = 'SET_RATE_MOVIE';
 const SET_RATE_VALUE = 'SET_RATE_VALUE';
 const SET_NOW_FILMS = 'SET_NOW_FILMS';
 
+type Thunk = ThunkAction<Promise<void>, initialState, unknown, ActionTypes>;
+
 export const getMovies = (
   genreId: number,
   page: number,
   sortType: SortByTypeType,
   searchValue: string,
   rateNumber: number,
-) => async (dispatch: Dispatch): Promise<void> => {
+): Thunk => async (dispatch: Dispatch) => {
   dispatch(setIsLoading(true));
   const data = await filmsAPI.getPopularFilms(sortType, genreId, searchValue, page, rateNumber);
   dispatch(setTotalPages(data.total_pages));
@@ -42,34 +46,34 @@ export const getMovies = (
   dispatch(setIsLoading(false));
 };
 
-export const postRateById = (id: number, value: number, sessionId: SessionId) => async (
-  dispatch: Dispatch,
+export const postRateById = (id: number, value: number, sessionId: SessionId): Thunk => async (
+  dispatch,
 ) => {
   const data = await filmsAPI.postRateMovie(id, value, sessionId);
   dispatch(setRateMovie(data));
 };
 
-export const getGenres = () => async (dispatch: Dispatch): Promise<void> => {
+export const getGenres = (): Thunk => async (dispatch): Promise<void> => {
   const genres = await filmsAPI.getGenresFilms();
   dispatch(getFilmsByGenres(genres));
 };
 
-export const getCredits = (id: number) => async (dispatch: Dispatch) => {
+export const getCredits = (id: number): Thunk => async (dispatch: Dispatch<ActionTypes>) => {
   const casts = await filmsAPI.getCreditsFilms(id);
   dispatch(setCredits(casts));
 };
 
-export const getMovieDetails = (movieId: number) => async (dispatch: Dispatch) => {
+export const getMovieDetails = (movieId: number): Thunk => async (dispatch: Dispatch) => {
   const movie = await filmsAPI.getDetails(movieId);
   dispatch(setMovieDetails(movie));
 };
 
-export const getTrailerById = (id: number) => async (dispatch: Dispatch) => {
+export const getTrailerById = (id: number): Thunk => async (dispatch: Dispatch) => {
   const data = await filmsAPI.getTrailer(id);
   dispatch(setTrailerById(data));
 };
 
-export const getNowFilms = () => async (dispatch: Dispatch) => {
+export const getNowFilms = (): Thunk => async (dispatch: Dispatch) => {
   const data = await filmsAPI.getNowPlayingFilms();
   dispatch(setNowMovies(data));
 };

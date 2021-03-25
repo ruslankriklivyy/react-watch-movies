@@ -1,3 +1,5 @@
+import { Actions } from '../actions/auth';
+
 const initialState = {
   user: {
     username: null,
@@ -8,7 +10,7 @@ const initialState = {
   sessionId: null,
 };
 
-type initialStateType = {
+export type initialState = {
   user: object;
   userId: null | number;
   token: null | string;
@@ -19,7 +21,7 @@ const GET_TOKEN = 'GET_TOKEN';
 const GET_SESSION_ID = 'GET_SESSION_ID';
 const SET_USER = 'SET_USER';
 
-const auth = (state = initialState, action: any): initialStateType => {
+const auth = (state = initialState, action: Actions): initialState => {
   switch (action.type) {
     case GET_TOKEN:
       return {
@@ -36,11 +38,11 @@ const auth = (state = initialState, action: any): initialStateType => {
         },
       };
 
-    case GET_SESSION_ID:
-      return {
-        ...state,
-        sessionId: action.payload,
-      };
+    // case GET_SESSION_ID:
+    //   return {
+    //     ...state,
+    //     sessionId: action.payload,
+    //   };
 
     default:
       return state;

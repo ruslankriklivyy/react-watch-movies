@@ -13,7 +13,7 @@ const initialState = {
   rateNumber: 5 as number,
 };
 
-type initialState = typeof initialState;
+export type initialState = typeof initialState;
 
 const FILTER_BY_SORT_TYPE = 'FILTER_BY_SORT_TYPE';
 const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
