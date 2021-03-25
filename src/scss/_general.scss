@@ -26,3 +26,15 @@ h6 {
   width: 100%;
   padding: 0 15px;
 }
+
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #1b1d1c;
+}
