@@ -6,7 +6,7 @@ import logoPng from '../assets/images/logo.png';
 import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
 import { useDispatch } from 'react-redux';
-// import { getSessionId, getToken, setToken } from '../redux/actions/auth';
+import { getSessionId, getToken, setToken } from '../redux/actions/auth';
 
 type HeaderHomeType = {
   items: Array<string>;
@@ -22,22 +22,6 @@ const HeaderHome: React.FC<HeaderHomeType> = ({ items, onSetVisibleLogin, token,
   const onSetActiveItem = (index: number) => {
     setActiveItem(index);
   };
-
-  const getAccess = () => {
-    // const localToken: string = localStorage.getItem('token');
-    // dispatch(setToken(JSON.parse(localToken)));
-  };
-
-  React.useEffect(() => {
-    localStorage.setItem('token', JSON.stringify(token));
-    // const localSessionId = localStorage.getItem('session_id');
-    // const sesId = JSON.parse(localSessionId);
-    // if (localToken) {
-    //   // dispatch(getToken());
-    // } else {
-    //   // dispatch(setToken(JSON.parse(localToken)));
-    // }
-  }, [sessionId, token, dispatch]);
 
   return (
     <div className="home-header">
@@ -68,9 +52,7 @@ const HeaderHome: React.FC<HeaderHomeType> = ({ items, onSetVisibleLogin, token,
                 <img src={userSvg} alt="user svg" />
               </span>
             ) : (
-              <a
-                onClick={getAccess}
-                href={`https://www.themoviedb.org/authenticate/${token && token.request_token}`}>
+              <a href={`https://www.themoviedb.org/authenticate/${token && token.request_token}`}>
                 <Button>Login</Button>
               </a>
             )}

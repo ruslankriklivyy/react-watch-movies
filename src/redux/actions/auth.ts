@@ -1,6 +1,7 @@
 import { authAPI } from '../../api/api';
 import { initialState } from '../reducers/auth';
 import { ThunkAction } from 'redux-thunk';
+import { SessionId, Token } from '../../types/types';
 
 const GET_TOKEN = 'GET_TOKEN';
 const GET_SESSION_ID = 'GET_SESSION_ID';
@@ -10,51 +11,39 @@ type Thunk = ThunkAction<Promise<void>, initialState, unknown, Actions>;
 
 export const getToken = (): Thunk => async (dispatch) => {
   const token = await authAPI.getUserToken();
+  dispatch(setToken(token));
 };
 
-export const getUser = (username: string, password: string, token: string): Thunk => async (
-  dispatch,
-) => {
-  const data = await authAPI.createSessionLogin(username, password, token);
-  dispatch(setUsers(data.username, data.password));
-};
-
-// export const getSessionId = (token: string) => async (dispatch: Dispatch) => {
-//   const sessionId = await authAPI.getSessionId(token);
-
-//   dispatch(setSessionId(sessionId));
+// export const getUser = (username: string, password: string, token: string): Thunk => async (
+//   dispatch,
+// ) => {
+//   const data = await authAPI.createSessionLogin(username, password, token);
 // };
 
-type SetUsersType = {
-  type: typeof SET_USER;
-  username: string;
-  password: string;
-};
+export const getSessionId = (token: Token): Thunk => async (dispatch) => {
+  const sessionId = await authAPI.getSessionId(token);
 
-export const setUsers = (username: string, password: string): SetUsersType => ({
-  type: SET_USER,
-  username,
-  password,
-});
+  dispatch(setSessionId(sessionId));
+};
 
 type SetTokenType = {
   type: typeof GET_TOKEN;
-  payload: string;
+  payload: Token;
 };
 
-export const setToken = (token: string): SetTokenType => ({
+export const setToken = (token: Token): SetTokenType => ({
   type: GET_TOKEN,
   payload: token,
 });
 
 type SetSessionIdType = {
   type: typeof GET_SESSION_ID;
-  payload: number;
+  payload: SessionId;
 };
 
-// export const setSessionId = (id: string): SetSessionIdType => ({
-//   type: GET_SESSION_ID,
-//   payload: id,
-// });
+export const setSessionId = (sessionId: SessionId): SetSessionIdType => ({
+  type: GET_SESSION_ID,
+  payload: sessionId,
+});
 
-export type Actions = SetSessionIdType | SetTokenType | SetUsersType;
+export type Actions = SetSessionIdType | SetTokenType;

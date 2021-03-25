@@ -21,8 +21,8 @@ export type SortBy = {
 };
 
 export type SessionId = {
-  session_id: string;
-  success?: string;
+  session_id?: string;
+  success: string;
 };
 
 type NowPlayingFilmsDatesType = {
@@ -120,6 +120,8 @@ export type CreditsCastsType = {
 };
 
 export type Token = {
+  success: boolean;
+  expires_at: string;
   request_token: string;
 };
 

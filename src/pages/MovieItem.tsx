@@ -127,7 +127,7 @@ const MovieItem: React.FC<MovieItemType> = ({
               width="468"
               height="460"
               src={`https://www.youtube.com/embed/${
-                trailer && trailer.results.length > 0 && trailer.results[0].key
+                trailer && trailer.results && trailer.results.length > 0 && trailer.results[0].key
               }?showinfo=0`}></iframe>
           </div>
         </div>
@@ -173,6 +173,7 @@ const MovieItem: React.FC<MovieItemType> = ({
               <div className="movie-watch__item-info-actor">
                 <div>Cast:</div>
                 {credits &&
+                  credits.cast &&
                   credits.cast.slice(0, 5).map((item) => (
                     <div className="movie-watch__item-actor">
                       <img

@@ -14,6 +14,7 @@ import {
 } from '../redux/actions/movies';
 import { RootState } from '../redux/reducers/index';
 import { Preloader } from '../components';
+import { getSessionId, getToken, setToken } from '../redux/actions/auth';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Movies = React.lazy(() => import('../pages/Movies'));
@@ -53,24 +54,20 @@ function AppInitialize() {
     }
   };
 
-  React.useEffect(() => {
-    const localStorageRef = localStorage.getItem('chosenItem');
-
-    if (localStorageRef) {
-      dispatch(setChosenItem(JSON.parse(localStorageRef)));
-    }
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    localStorage.setItem('chosenItem', JSON.stringify(chosenItem));
-  }, [chosenItem]);
-
   const onSetValueRate = React.useCallback(
     (val) => {
       dispatch(setValueRate(val));
     },
     [dispatch],
   );
+
+  React.useEffect(() => {
+    dispatch(getToken());
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    dispatch(getSessionId(token));
+  }, [dispatch, token]);
 
   React.useEffect(() => {
     dispatch(postRateById(movieId, rateValue, sessionId));
@@ -106,6 +103,18 @@ function AppInitialize() {
     localStorage.setItem('chosenItemId', JSON.stringify(movieId));
     localStorage.setItem('searchInput', JSON.stringify(searchValue));
   }, [rateNumber, searchValue, movieId]);
+
+  React.useEffect(() => {
+    const localStorageRef = localStorage.getItem('chosenItem');
+
+    if (localStorageRef) {
+      dispatch(setChosenItem(JSON.parse(localStorageRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('chosenItem', JSON.stringify(chosenItem));
+  }, [chosenItem]);
 
   return (
     <div className="AppInitialize">

@@ -94,7 +94,6 @@ export const authAPI = {
     return instance
       .get(`authentication/token/new?api_key=74d41124b9d3bafd09d832463dd78216`)
       .then(({ data }) => {
-        localStorage.setItem('token', JSON.stringify(data));
         return data;
       });
   },
@@ -104,18 +103,19 @@ export const authAPI = {
         request_token: token && token.request_token,
       })
       .then(({ data }) => {
+        console.log(token);
         return data;
       });
   },
-  createSessionLogin(username: string, password: string, token: string): Promise<any> {
-    return instance
-      .post(`authentication/token/validate_with_login?api_key=74d41124b9d3bafd09d832463dd78216`, {
-        username,
-        password,
-        request_token: token,
-      })
-      .then(({ data }) => {
-        return data;
-      });
-  },
+  // createSessionLogin(username: string, password: string, token: string): Promise<any> {
+  //   return instance
+  //     .post(`authentication/token/validate_with_login?api_key=74d41124b9d3bafd09d832463dd78216`, {
+  //       username,
+  //       password,
+  //       request_token: token,
+  //     })
+  //     .then(({ data }) => {
+  //       return data;
+  //     });
+  // },
 };

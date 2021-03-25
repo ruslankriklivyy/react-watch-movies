@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getNowFilms } from '../redux/actions/movies';
 import { getToken } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers/index';
-import { HeaderHome, Intro, Login, Registration } from '../components';
+import { HeaderHome, Intro } from '../components';
 import { SessionId } from '../types/types';
 
 const links = ['Home', 'Watch Movies!'];

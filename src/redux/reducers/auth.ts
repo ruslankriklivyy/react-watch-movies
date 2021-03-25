@@ -1,3 +1,4 @@
+import { SessionId, Token } from '../../types/types';
 import { Actions } from '../actions/auth';
 
 const initialState = {
@@ -13,8 +14,8 @@ const initialState = {
 export type initialState = {
   user: object;
   userId: null | number;
-  token: null | string;
-  sessionId: null | string;
+  token: null | Token;
+  sessionId: null | SessionId;
 };
 
 const GET_TOKEN = 'GET_TOKEN';
@@ -29,20 +30,11 @@ const auth = (state = initialState, action: Actions): initialState => {
         token: action.payload,
       };
 
-    case SET_USER:
+    case GET_SESSION_ID:
       return {
         ...state,
-        user: {
-          username: action.username,
-          password: action.password,
-        },
+        sessionId: action.payload,
       };
-
-    // case GET_SESSION_ID:
-    //   return {
-    //     ...state,
-    //     sessionId: action.payload,
-    //   };
 
     default:
       return state;
