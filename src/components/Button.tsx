@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ButtonPropsType = {
-  children: any;
+  children: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   type?: 'button' | 'submit' | 'reset' | undefined;
 };

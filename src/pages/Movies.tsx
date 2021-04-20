@@ -85,7 +85,7 @@ const Movies = () => {
   return (
     <div className="Movies">
       <Header onSearch={onSearchMovie} />
-      <Menu onSelectGenre={onSelectFilterGenre} items={genres && genres.genres} />
+      <Menu onSelectGenre={onSelectFilterGenre} items={genres?.genres} />
       <SortBy onSelectRate={onSelectRate} onSelectFilter={onSelectFilterByType} items={sortBy} />
       <div className="movies">
         <div className="container">

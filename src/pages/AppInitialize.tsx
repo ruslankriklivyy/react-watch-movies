@@ -33,17 +33,12 @@ function AppInitialize() {
     chosenItem,
     movieId,
     rateValue,
-  } = useSelector((state: RootState) => {
-    return state.movies;
-  });
-  const rateNumber = useSelector((state: RootState) => {
-    return state.filters.rateNumber;
-  });
-  const { token, sessionId } = useSelector((state: RootState) => {
-    return state.auth;
-  });
+  } = useSelector((state: RootState) => state.movies);
+  const rateNumber = useSelector((state: RootState) => state.filters.rateNumber);
+  const { token, sessionId } = useSelector((state: RootState) => state.auth);
+
   const onSetMovieId = (id: number) => {
-    if (items && items.results) {
+    if (items?.results) {
       const item = items.results.filter((obj) => obj.id === id);
       dispatch(setChosenItem(item));
       dispatch(setMovieId(id));

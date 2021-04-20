@@ -10,9 +10,7 @@ type PaginatorType = {
 };
 
 const Paginator: React.FC<PaginatorType> = ({ onSelectPage }) => {
-  const { currentPage, totalPages } = useSelector((state: RootState) => {
-    return state.filters;
-  });
+  const { currentPage, totalPages } = useSelector((state: RootState) => state.filters);
   const perPage = 5;
   const countPages = Math.ceil(totalPages / perPage);
   const pages: Array<number> = [];

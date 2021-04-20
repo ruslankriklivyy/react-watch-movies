@@ -10,9 +10,7 @@ type MenuType = {
 };
 
 const Menu: React.FC<MenuType> = React.memo(function Menu({ items, onSelectGenre }) {
-  const { genreId } = useSelector((state: RootState) => {
-    return state.filters;
-  });
+  const { genreId } = useSelector((state: RootState) => state.filters);
 
   const onSetActiveItem = (id: number, e: React.MouseEvent) => {
     e.preventDefault();

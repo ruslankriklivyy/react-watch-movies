@@ -8,9 +8,7 @@ type SearchMovieType = {
 };
 
 const SearchMovie: React.FC<SearchMovieType> = React.memo(function SearchMovie({ onSearch }) {
-  const searchValue = useSelector((state: RootState) => {
-    return state.movies.searchValue;
-  });
+  const searchValue = useSelector((state: RootState) => state.movies.searchValue);
 
   const onChangeInputValue = React.useCallback(
     (text) => {

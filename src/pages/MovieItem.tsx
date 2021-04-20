@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '../components';
 import scrollTop from '../utils/scrollTo';
-
-import defaultUser from '../assets/images/default-user.webp';
-import closeSvg from '../assets/images/closeVideo.svg';
-import halfStarSvg from '../assets/images/star-half.svg';
-import emptyStarSvg from '../assets/images/empty-star.svg';
-import fullStarSvg from '../assets/images/star-full.svg';
 import {
   CreditsType,
   GenresItemType,
@@ -18,6 +12,12 @@ import {
   SessionId,
   TrailerByIdType,
 } from '../types/types';
+
+import defaultUser from '../assets/images/default-user.webp';
+import closeSvg from '../assets/images/closeVideo.svg';
+import halfStarSvg from '../assets/images/star-half.svg';
+import emptyStarSvg from '../assets/images/empty-star.svg';
+import fullStarSvg from '../assets/images/star-full.svg';
 
 type newGenresType = {
   name: string;
@@ -55,6 +55,8 @@ const MovieItem: React.FC<MovieItemType> = ({
   sessionId,
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
+  const blockOutRef = React.useRef<HTMLDivElement>(null);
+
   const newGenres: Array<newGenresType> = [];
   if (genres && genres.length > 0) {
     for (let i = 0; i < genre_ids.length; i++) {
@@ -67,7 +69,6 @@ const MovieItem: React.FC<MovieItemType> = ({
     onSetValueRate(val);
   };
 
-  const blockOutRef = React.useRef<HTMLDivElement>(null);
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
@@ -127,7 +128,7 @@ const MovieItem: React.FC<MovieItemType> = ({
               width="468"
               height="460"
               src={`https://www.youtube.com/embed/${
-                trailer && trailer.results && trailer.results.length > 0 && trailer.results[0].key
+                trailer?.results?.length > 0 && trailer.results[0].key
               }?showinfo=0`}></iframe>
           </div>
         </div>
@@ -171,22 +172,20 @@ const MovieItem: React.FC<MovieItemType> = ({
                 ))}
               </div>
               <div className="movie-watch__item-info-actor">
-                <div>Cast:</div>
-                {credits &&
-                  credits.cast &&
-                  credits.cast.slice(0, 5).map((item) => (
-                    <div className="movie-watch__item-actor">
-                      <img
-                        src={
-                          item.profile_path !== null
-                            ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
-                            : defaultUser
-                        }
-                        alt="actor img"
-                      />
-                      <span>{item.name}</span>
-                    </div>
-                  ))}
+                Cast:
+                {credits?.cast?.slice(0, 5).map((item) => (
+                  <div className="movie-watch__item-actor">
+                    <img
+                      src={
+                        item.profile_path !== null
+                          ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+                          : defaultUser
+                      }
+                      alt="actor img"
+                    />
+                    <span>{item.name}</span>
+                  </div>
+                ))}
               </div>
               {sessionId && sessionId.success ? (
                 <div className="movie-watch__item-rate">

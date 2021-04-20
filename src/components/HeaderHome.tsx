@@ -5,19 +5,16 @@ import { Link } from 'react-router-dom';
 import logoPng from '../assets/images/logo.png';
 import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
-import { useDispatch } from 'react-redux';
-import { getSessionId, getToken, setToken } from '../redux/actions/auth';
+import { Token, SessionId } from '../types/types';
 
 type HeaderHomeType = {
   items: Array<string>;
-  onSetVisibleLogin: () => void;
-  token: any;
-  sessionId: any;
+  token: Token;
+  sessionId: SessionId;
 };
 
-const HeaderHome: React.FC<HeaderHomeType> = ({ items, onSetVisibleLogin, token, sessionId }) => {
+const HeaderHome: React.FC<HeaderHomeType> = ({ items, token, sessionId }) => {
   const [activeItem, setActiveItem] = React.useState(0);
-  const dispatch = useDispatch();
 
   const onSetActiveItem = (index: number) => {
     setActiveItem(index);
@@ -47,7 +44,7 @@ const HeaderHome: React.FC<HeaderHomeType> = ({ items, onSetVisibleLogin, token,
             </ul>
           </div>
           <div className="home-header-btns">
-            {sessionId && sessionId.success ? (
+            {sessionId?.success ? (
               <span>
                 <img src={userSvg} alt="user svg" />
               </span>

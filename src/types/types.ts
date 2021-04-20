@@ -159,12 +159,6 @@ export type SortByTypeType = {
   order: 'desc' | string;
 };
 
-// export type SortByTypeType = {
-//   name: string;
-//   type: string;
-//   order: string;
-// };
-
 export type ItemsType = {
   page: number;
   total_pages: number;

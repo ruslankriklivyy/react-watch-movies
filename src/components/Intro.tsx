@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import { NowPlayingFilmsType, ItemsType, MoviesResult } from '../types/types';
+
+import { NowPlayingFilmsType } from '../types/types';
 
 type IntroType = {
   items: NowPlayingFilmsType;
@@ -41,19 +42,17 @@ const Intro: React.FC<IntroType> = ({ items, setId }) => {
           </div>
           <div className="intro-top-movies">
             <Slider {...settings}>
-              {results &&
-                results.length > 0 &&
-                results.slice(0, 4).map((item) => (
-                  <Link
-                    to={`/watchmovies/${item.id}`}
-                    onClick={() => setId(item.id)}
-                    className="intro-top-movies__item">
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                      alt="img movie"
-                    />
-                  </Link>
-                ))}
+              {results?.slice(0, 4)?.map((item) => (
+                <Link
+                  to={`/watchmovies/${item.id}`}
+                  onClick={() => setId(item.id)}
+                  className="intro-top-movies__item">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                    alt="img movie"
+                  />
+                </Link>
+              ))}
             </Slider>
           </div>
         </div>

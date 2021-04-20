@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import MovieBlockLoader from './MovieBlockLoader';
+import { MoviesResult } from '../types/types';
+
+import defaultMovie from '../assets/images/default-movie.jpg';
 import starSvg from '../assets/images/star.svg';
 import voteCount from '../assets/images/review.svg';
-import defaultMovie from '../assets/images/default-movie.jpg';
-import { MoviesResult } from '../types/types';
 
 type MovieBlockType = {
   items: Array<MoviesResult>;
@@ -19,8 +21,7 @@ const MovieBlock: React.FC<MovieBlockType> = ({ items, setId, isLoading }) => {
         ? Array(20)
             .fill(0)
             .map((_, index) => <MovieBlockLoader key={index} />)
-        : items &&
-          items.map(({ title, id, vote_average, poster_path, release_date, vote_count }) => (
+        : items?.map(({ title, id, vote_average, poster_path, release_date, vote_count }) => (
             <Link
               to={`/watchmovies/${id}`}
               onClick={() => setId(id)}

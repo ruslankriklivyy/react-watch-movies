@@ -2,17 +2,13 @@ import React from 'react';
 import Slider from 'react-rangeslider';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+
 import { RootState } from '../redux/reducers/index';
-import 'react-rangeslider/lib/index.css';
 import { SortByTypeType } from '../types/types';
 
 import starSvg from '../assets/images/star.svg';
 
-// type SortByObjType = {
-//   name: string;
-//   type: string;
-//   order: string;
-// };
+import 'react-rangeslider/lib/index.css';
 
 type SortByType = {
   items: Array<SortByTypeType>;
@@ -25,16 +21,14 @@ const SortBy: React.FC<SortByType> = React.memo(function SortBy({
   onSelectFilter,
   onSelectRate,
 }) {
-  const { sortType, rateNumber } = useSelector((state: RootState) => {
-    return state.filters;
-  });
+  const { sortType, rateNumber } = useSelector((state: RootState) => state.filters);
 
   const onSetActiveItem = (index: number, e: React.MouseEvent) => {
     e.preventDefault();
     onSelectFilter(index);
   };
 
-  const handleChange = (val: number) => {
+  const onHandleChange = (val: number) => {
     onSelectRate(val);
   };
 
@@ -62,7 +56,7 @@ const SortBy: React.FC<SortByType> = React.memo(function SortBy({
           <div className="sortby-right">
             <div className="slider">
               <img src={starSvg} alt="star svg" />
-              <Slider min={0} max={10} value={rateNumber} onChange={handleChange} />
+              <Slider min={0} max={10} value={rateNumber} onChange={onHandleChange} />
               <span>{rateNumber}</span>
             </div>
           </div>

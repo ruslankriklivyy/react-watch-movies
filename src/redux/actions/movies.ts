@@ -3,7 +3,6 @@ import { setTotalPages } from './filters';
 import { Dispatch } from 'redux';
 import {
   SessionId,
-  SortBy,
   NowPlayingFilmsType,
   TrailerByIdType,
   RateMovieType,

@@ -1,48 +1,29 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getNowFilms } from '../redux/actions/movies';
-import { getToken } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers/index';
 import { HeaderHome, Intro } from '../components';
-import { SessionId } from '../types/types';
+import { SessionId, Token } from '../types/types';
 
 const links = ['Home', 'Watch Movies!'];
 
 type HomeType = {
-  token: string;
+  token: Token;
   sessionId: SessionId;
   setId: (id: number) => void;
 };
 
 const Home: React.FC<HomeType> = ({ token, sessionId, setId }) => {
   const dispatch = useDispatch();
-  const nowPlayingFilms = useSelector((state: RootState) => {
-    return state.movies.nowPlayingFilms;
-  });
+  const nowPlayingFilms = useSelector((state: RootState) => state.movies.nowPlayingFilms);
   const blockOutRef = React.useRef(null);
   const [visibleLoginForm, setVisibleLoginForm] = React.useState(false);
-  const [visibleRegistrationForm, setVisibleRegistrationForm] = React.useState(false);
-
-  const onSetVisibleLoginForm = () => {
-    setVisibleLoginForm(!visibleLoginForm);
-  };
 
   React.useEffect(() => {
     dispatch(getNowFilms());
   }, [dispatch]);
-
-  const onCloseLogin = () => {
-    setVisibleLoginForm(false);
-  };
-
-  const onSetRegistrationForm = () => {
-    setVisibleRegistrationForm(!visibleRegistrationForm);
-  };
-
-  const onCloseRegistration = () => {
-    setVisibleRegistrationForm(false);
-  };
 
   return (
     <div
@@ -50,26 +31,8 @@ const Home: React.FC<HomeType> = ({ token, sessionId, setId }) => {
       className={classNames('home', {
         blockout: visibleLoginForm,
       })}>
-      <HeaderHome
-        token={token}
-        sessionId={sessionId}
-        items={links}
-        onSetVisibleLogin={onSetVisibleLoginForm}
-        // onSetVisibleRegistration={onSetRegistrationForm}
-      />
+      <HeaderHome token={token} sessionId={sessionId} items={links} />
       <Intro setId={setId} items={nowPlayingFilms} />
-      {/* <Login
-        blockOutRef={blockOutRef}
-        visibleForm={visibleLoginForm}
-        onClose={onCloseLogin}
-        onSetVisible={onSetVisibleLoginForm}
-      />
-      <Registration
-        onClose={onCloseRegistration}
-        blockOutRef={blockOutRef}
-        visibleForm={visibleRegistrationForm}
-        onSetVisible={onSetRegistrationForm}
-      /> */}
     </div>
   );
 };

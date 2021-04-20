@@ -5,7 +5,6 @@ import { SessionId, Token } from '../../types/types';
 
 const GET_TOKEN = 'GET_TOKEN';
 const GET_SESSION_ID = 'GET_SESSION_ID';
-const SET_USER = 'SET_USER';
 
 type Thunk = ThunkAction<Promise<void>, initialState, unknown, Actions>;
 
@@ -13,12 +12,6 @@ export const getToken = (): Thunk => async (dispatch) => {
   const token = await authAPI.getUserToken();
   dispatch(setToken(token));
 };
-
-// export const getUser = (username: string, password: string, token: string): Thunk => async (
-//   dispatch,
-// ) => {
-//   const data = await authAPI.createSessionLogin(username, password, token);
-// };
 
 export const getSessionId = (token: Token): Thunk => async (dispatch) => {
   const sessionId = await authAPI.getSessionId(token);
