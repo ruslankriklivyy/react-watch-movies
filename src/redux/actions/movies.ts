@@ -14,7 +14,7 @@ import {
   SortByTypeType,
 } from '../../types/types';
 import { ThunkAction } from 'redux-thunk';
-import { initialState } from '../reducers/movies';
+import { InitialState } from '../reducers/movies';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CHOSEN_ITEM = 'SET_CHOSEN_ITEM';
@@ -29,7 +29,7 @@ const SET_RATE_MOVIE = 'SET_RATE_MOVIE';
 const SET_RATE_VALUE = 'SET_RATE_VALUE';
 const SET_NOW_FILMS = 'SET_NOW_FILMS';
 
-type Thunk = ThunkAction<Promise<void>, initialState, unknown, ActionTypes>;
+type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
 export const getMovies = (
   genreId: number,

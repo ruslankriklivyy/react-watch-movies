@@ -1,12 +1,12 @@
 import { authAPI } from '../../api/api';
-import { initialState } from '../reducers/auth';
+import { InitialState } from '../reducers/auth';
 import { ThunkAction } from 'redux-thunk';
 import { SessionId, Token } from '../../types/types';
 
 const GET_TOKEN = 'GET_TOKEN';
 const GET_SESSION_ID = 'GET_SESSION_ID';
 
-type Thunk = ThunkAction<Promise<void>, initialState, unknown, Actions>;
+type Thunk = ThunkAction<Promise<void>, InitialState, unknown, Actions>;
 
 export const getToken = (): Thunk => async (dispatch) => {
   const token = await authAPI.getUserToken();
