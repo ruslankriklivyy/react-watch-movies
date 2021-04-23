@@ -3,7 +3,7 @@ import Slider from 'react-rangeslider';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '../redux/reducers/index';
+import { RootState } from '../redux/index';
 import { SortByTypeType } from '../types/types';
 
 import starSvg from '../assets/images/star.svg';

@@ -1,22 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import scrollTo from '../utils/scrollTo';
-import { SortByTypeType } from '../types/types';
 import { Header, Menu, SortBy, MovieBlock, Paginator } from '../components';
-import { RootState } from '../redux/reducers/index';
+import { RootState } from '../redux/index';
 import {
   getMovies,
   getMoviesBySearch,
   getGenres,
   setChosenItem,
   setMovieId,
-} from '../redux/actions/movies';
-import {
-  filterByGenre,
-  filterBySortType,
-  setCurrentPage,
-  filterByRate,
-} from '../redux/actions/filters';
+} from '../redux/movies';
+import { filterByGenre, filterBySortType, setCurrentPage, filterByRate } from '../redux/filters';
 const sortBy = [
   { name: 'Latest', type: 'primary_release_date', order: 'desc' },
   { name: 'Popular', type: 'popularity', order: 'desc' },
@@ -47,7 +41,7 @@ const Movies = () => {
   );
 
   React.useEffect(() => {
-    dispatch(getMovies(genreId, currentPage, sortType, searchValue, rateNumber));
+    dispatch(getMovies({ genreId, currentPage, sortType, searchValue, rateNumber }));
   }, [sortType, searchValue, currentPage, genreId, rateNumber, dispatch]);
 
   React.useEffect(() => {

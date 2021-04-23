@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
-import { RootState } from '../redux/reducers/index';
+import { RootState } from '../redux/index';
 
 import createPages from '../utils/createPages';
 

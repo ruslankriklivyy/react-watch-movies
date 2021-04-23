@@ -11,10 +11,10 @@ import {
   getMovieDetails,
   postRateById,
   setValueRate,
-} from '../redux/actions/movies';
-import { RootState } from '../redux/reducers/index';
+} from '../redux/movies';
+import { RootState } from '../redux/index';
 import { Preloader } from '../components';
-import { getSessionId, getToken, setToken } from '../redux/actions/auth';
+import { getSessionId, getToken } from '../redux/auth';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Movies = React.lazy(() => import('../pages/Movies'));
@@ -65,7 +65,7 @@ function AppInitialize() {
   }, [dispatch, token]);
 
   React.useEffect(() => {
-    dispatch(postRateById(movieId, rateValue, sessionId));
+    dispatch(postRateById({ movieId, rateValue, sessionId }));
   }, [dispatch, movieId, rateValue, sessionId]);
 
   React.useEffect(() => {

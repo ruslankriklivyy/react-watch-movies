@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import loupeSvg from '../assets/images/loupe.svg';
-import { RootState } from '../redux/reducers/index';
+import { RootState } from '../redux/index';
 
 type SearchMovieType = {
   onSearch: (text: string) => void;

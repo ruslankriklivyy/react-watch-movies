@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { GenresItemType } from '../types/types';
-import { RootState } from '../redux/reducers/index';
+import { RootState } from '../redux/index';
 
 type MenuType = {
   items: Array<GenresItemType>;
