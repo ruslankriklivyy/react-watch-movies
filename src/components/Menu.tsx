@@ -1,15 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
-import { GenresItemType } from '../types/types';
+import { GenresItemType } from '../interfaces/interfaces';
 import { RootState } from '../redux/index';
 
-type MenuType = {
+interface IMenu {
   items: Array<GenresItemType>;
   onSelectGenre: (id: number) => void;
-};
+}
 
-const Menu: React.FC<MenuType> = React.memo(function Menu({ items, onSelectGenre }) {
+const Menu: React.FC<IMenu> = React.memo(function Menu({ items, onSelectGenre }) {
   const { genreId } = useSelector((state: RootState) => state.filters);
 
   const onSetActiveItem = (id: number, e: React.MouseEvent) => {

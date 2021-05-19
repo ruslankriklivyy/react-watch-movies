@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import logoPng from '../assets/images/logo.png';
 import userSvg from '../assets/images/user.svg';
 import { Button } from '.';
-import { Token, SessionId } from '../types/types';
+import { Token, SessionId } from '../interfaces/interfaces';
 
-type HeaderHomeType = {
+interface IHeaderHome {
   items: Array<string>;
   token: Token;
   sessionId: SessionId;
-};
+}
 
-const HeaderHome: React.FC<HeaderHomeType> = ({ items, token, sessionId }) => {
+const HeaderHome: React.FC<IHeaderHome> = ({ items, token, sessionId }) => {
   const [activeItem, setActiveItem] = React.useState(0);
 
   const onSetActiveItem = (index: number) => {

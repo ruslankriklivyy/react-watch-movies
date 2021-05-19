@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import loupeSvg from '../assets/images/loupe.svg';
 import { RootState } from '../redux/index';
 
-type SearchMovieType = {
+interface ISearchMovie {
   onSearch: (text: string) => void;
-};
+}
 
-const SearchMovie: React.FC<SearchMovieType> = React.memo(function SearchMovie({ onSearch }) {
+const SearchMovie: React.FC<ISearchMovie> = React.memo(function SearchMovie({ onSearch }) {
   const searchValue = useSelector((state: RootState) => state.movies.searchValue);
 
   const onChangeInputValue = React.useCallback(

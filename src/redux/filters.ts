@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SortByTypeType } from '../types/types';
+import { SortByTypeType } from '../interfaces/interfaces';
 
 const initialState = {
   sortType: {
@@ -38,10 +38,5 @@ const filters = createSlice({
 });
 
 export default filters.reducer;
-export const {
-  filterBySortType,
-  setTotalPages,
-  filterByRate,
-  setCurrentPage,
-  filterByGenre,
-} = filters.actions;
+export const { filterBySortType, setTotalPages, filterByRate, setCurrentPage, filterByGenre } =
+  filters.actions;

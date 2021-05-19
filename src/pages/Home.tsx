@@ -5,17 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getNowFilms } from '../redux/movies';
 import { RootState } from '../redux/index';
 import { HeaderHome, Intro } from '../components';
-import { SessionId, Token } from '../types/types';
+import { SessionId, Token } from '../interfaces/interfaces';
 
 const links = ['Home', 'Watch Movies!'];
 
-type HomeType = {
+interface IHome {
   token: Token;
   sessionId: SessionId;
   setId: (id: number) => void;
-};
+}
 
-const Home: React.FC<HomeType> = ({ token, sessionId, setId }) => {
+const Home: React.FC<IHome> = ({ token, sessionId, setId }) => {
   const dispatch = useDispatch();
   const nowPlayingFilms = useSelector((state: RootState) => state.movies.nowPlayingFilms);
   const blockOutRef = React.useRef(null);

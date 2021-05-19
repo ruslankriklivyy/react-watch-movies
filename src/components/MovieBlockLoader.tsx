@@ -1,11 +1,11 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-type MyLoaderType = {
+interface IMyLoader {
   key: number | string;
-};
+}
 
-const MyLoader: React.FC<MyLoaderType> = ({ key }) => (
+const MyLoader: React.FC<IMyLoader> = ({ key }) => (
   <ContentLoader
     speed={2}
     width={342}

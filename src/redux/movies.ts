@@ -7,7 +7,7 @@ import {
   NowPlayingFilmsType,
   RateMovieType,
   TrailerByIdType,
-} from '../types/types';
+} from '../interfaces/interfaces';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { filmsAPI } from '../api/api';

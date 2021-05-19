@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authAPI } from '../api/api';
-import { SessionId, Token } from '../types/types';
+import { SessionId, Token } from '../interfaces/interfaces';
 
 const initialState = {
   userId: null as number | null,

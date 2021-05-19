@@ -1,4 +1,4 @@
-export type MoviesResult = {
+export interface MoviesResult {
   adult: boolean;
   backdrop_path: string;
   id: number;
@@ -13,57 +13,57 @@ export type MoviesResult = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-};
+}
 
-export type SortBy = {
+export interface SortBy {
   type: string;
   order: string;
-};
+}
 
-export type SessionId = {
+export interface SessionId {
   session_id?: string;
   success: string;
-};
+}
 
-type NowPlayingFilmsDatesType = {
+interface NowPlayingFilmsDatesType {
   maximum: string;
   minimum: string;
-};
+}
 
-export type NowPlayingFilmsType = {
+export interface NowPlayingFilmsType {
   dates: NowPlayingFilmsDatesType;
   page: number;
   results: Array<MoviesResult>;
   total_pages: number;
   total_results: number;
-};
+}
 
-type ProductionCompanies = {
+interface ProductionCompanies {
   id: number;
   logo_path: string;
   name: string;
   origin_country: string;
-};
+}
 
-type ProductionContries = {
+interface ProductionContries {
   iso_3166_1: string;
   name: string;
-};
+}
 
-type SpokenLanguages = {
+interface SpokenLanguages {
   english_name: string;
   iso_639_1: string;
   name: string;
-};
+}
 
-type BelongsToCollectionType = {
+interface BelongsToCollectionType {
   id: number;
   name: string;
   poster_path: string;
   backdrop_path: string;
-};
+}
 
-export type TrailerByIdResultsType = {
+export interface TrailerByIdResultsType {
   id: string;
   iso_639_1: string;
   iso_3166_1: string;
@@ -72,25 +72,25 @@ export type TrailerByIdResultsType = {
   site: string;
   size: number;
   type: string;
-};
+}
 
-export type TrailerByIdType = {
+export interface TrailerByIdType {
   id: number;
   results: Array<TrailerByIdResultsType>;
-};
+}
 
-export type RateMovieType = {
+export interface RateMovieType {
   status_code: number;
   status_message: string;
-};
+}
 
-export type CreditsType = {
+export interface CreditsType {
   id: number;
   cast: Array<CreditsCastsType>;
   crew: Array<CreditsCrewType>;
-};
+}
 
-type CreditsCrewType = {
+interface CreditsCrewType {
   adult: boolean;
   gender: number;
   id: number;
@@ -102,9 +102,9 @@ type CreditsCrewType = {
   credit_id: number;
   department: string;
   job: string;
-};
+}
 
-export type CreditsCastsType = {
+export interface CreditsCastsType {
   adult: boolean;
   gender: number;
   id: number;
@@ -117,15 +117,15 @@ export type CreditsCastsType = {
   character: string;
   credit_id: string;
   order: number;
-};
+}
 
-export type Token = {
+export interface Token {
   success: boolean;
   expires_at: string;
   request_token: string;
-};
+}
 
-export type MovieDetails = {
+export interface MovieDetails {
   adult: boolean;
   belongs_to_collection: Array<BelongsToCollectionType>;
   genres: Array<GenresItemType>;
@@ -151,26 +151,26 @@ export type MovieDetails = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-};
+}
 
-export type SortByTypeType = {
+export interface SortByTypeType {
   name: 'Latest' | string;
   type: 'primary_release_date' | string;
   order: 'desc' | string;
-};
+}
 
-export type ItemsType = {
+export interface ItemsType {
   page: number;
   total_pages: number;
   results: Array<MoviesResult>;
   total_results: number;
-};
+}
 
-export type GenresType = {
+export interface GenresType {
   genres: Array<GenresItemType>;
-};
+}
 
-export type GenresItemType = {
+export interface GenresItemType {
   id: number;
   name: string;
-};
+}

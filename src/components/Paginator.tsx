@@ -5,11 +5,11 @@ import { RootState } from '../redux/index';
 
 import createPages from '../utils/createPages';
 
-type PaginatorType = {
+interface IPaginator {
   onSelectPage: (num: number) => void;
-};
+}
 
-const Paginator: React.FC<PaginatorType> = ({ onSelectPage }) => {
+const Paginator: React.FC<IPaginator> = ({ onSelectPage }) => {
   const { currentPage, totalPages } = useSelector((state: RootState) => state.filters);
   const perPage = 5;
   const countPages = Math.ceil(totalPages / perPage);

@@ -9,9 +9,10 @@ import {
   CreditsType,
   GenresItemType,
   MovieDetails,
+  MoviesResult,
   SessionId,
   TrailerByIdType,
-} from '../types/types';
+} from '../interfaces/interfaces';
 
 import defaultUser from '../assets/images/default-user.webp';
 import closeSvg from '../assets/images/closeVideo.svg';
@@ -19,25 +20,19 @@ import halfStarSvg from '../assets/images/star-half.svg';
 import emptyStarSvg from '../assets/images/empty-star.svg';
 import fullStarSvg from '../assets/images/star-full.svg';
 
-type newGenresType = {
+interface newGenresType {
   name: string;
-};
+}
 
-type MovieItemType = {
+interface MovieItemType extends MoviesResult {
   onSetValueRate: (val: string) => void;
   credits: CreditsType;
-  title: string;
   genres: Array<GenresItemType>;
-  vote_average: number;
-  overview: string;
-  poster_path: string;
-  release_date: string;
   genre_ids: Array<number>;
   trailer: TrailerByIdType;
-  vote_count: number;
   movieDetails: MovieDetails;
   sessionId: SessionId;
-};
+}
 
 const MovieItem: React.FC<MovieItemType> = ({
   onSetValueRate,
@@ -128,7 +123,7 @@ const MovieItem: React.FC<MovieItemType> = ({
               width="468"
               height="460"
               src={`https://www.youtube.com/embed/${
-                trailer?.results?.length > 0 && trailer.results[0].key
+                trailer.results?.length > 0 && trailer.results[0].key
               }?showinfo=0`}></iframe>
           </div>
         </div>

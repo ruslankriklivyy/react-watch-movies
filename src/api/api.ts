@@ -10,7 +10,7 @@ import {
   TrailerByIdType,
   RateMovieType,
   SortByTypeType,
-} from '../types/types';
+} from '../interfaces/interfaces';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',

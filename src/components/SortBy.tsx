@@ -4,19 +4,19 @@ import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../redux/index';
-import { SortByTypeType } from '../types/types';
+import { SortByTypeType } from '../interfaces/interfaces';
 
 import starSvg from '../assets/images/star.svg';
 
 import 'react-rangeslider/lib/index.css';
 
-type SortByType = {
+interface ISortBy {
   items: Array<SortByTypeType>;
   onSelectFilter: (index: number) => void;
   onSelectRate: (val: number) => void;
-};
+}
 
-const SortBy: React.FC<SortByType> = React.memo(function SortBy({
+const SortBy: React.FC<ISortBy> = React.memo(function SortBy({
   items,
   onSelectFilter,
   onSelectRate,

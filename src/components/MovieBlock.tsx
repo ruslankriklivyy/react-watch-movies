@@ -2,19 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import MovieBlockLoader from './MovieBlockLoader';
-import { MoviesResult } from '../types/types';
+import { MoviesResult } from '../interfaces/interfaces';
 
 import defaultMovie from '../assets/images/default-movie.jpg';
 import starSvg from '../assets/images/star.svg';
 import voteCount from '../assets/images/review.svg';
 
-type MovieBlockType = {
+interface IMovieBlock {
   items: Array<MoviesResult>;
   setId: (id: number) => void;
   isLoading: boolean;
-};
+}
 
-const MovieBlock: React.FC<MovieBlockType> = ({ items, setId, isLoading }) => {
+const MovieBlock: React.FC<IMovieBlock> = ({ items, setId, isLoading }) => {
   return (
     <div className="movies-block">
       {isLoading
