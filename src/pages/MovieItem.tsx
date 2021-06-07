@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ReactStars from 'react-rating-stars-component';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Button } from '../components';
 import scrollTop from '../utils/scrollTo';
@@ -51,6 +51,7 @@ const MovieItem: React.FC<MovieItemType> = ({
 }) => {
   const [visibleTrailer, setVisibleTrailer] = React.useState(false);
   const blockOutRef = React.useRef<HTMLDivElement>(null);
+  const history = useHistory();
 
   const newGenres: Array<newGenresType> = [];
   if (genres && genres.length > 0) {
@@ -100,7 +101,7 @@ const MovieItem: React.FC<MovieItemType> = ({
   return (
     <div className="movie-watch__item-wrapper">
       <div className="back">
-        <Link to="/watchmovies">Back</Link>
+        <button onClick={() => history.goBack()}>Back</button>
       </div>
       <div className="movie-watch__item">
         <div
