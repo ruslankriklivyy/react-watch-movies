@@ -6,9 +6,9 @@
 
 ### You can search for movies, filter by genre and other types. You can also view information about the movie, such as the trailer, or read the description.
 
-### Technologies I use
-
-![ReactJS](https://img.shields.io/badge/-ReactJS-222222?style=for-the-badge&logo=react)
-![JavaScript](https://img.shields.io/badge/-JavaScript-222222?style=for-the-badge&logo=javascript)
-![TypeScript](https://img.shields.io/badge/-TypeScript-222222?style=for-the-badge&logo=typescript)
-![Redux](https://img.shields.io/badge/-Redux-222222?style=for-the-badge&logo=redux)
+### The technologies I used
+- ReactJS
+- TypeScript
+- Redux Toolkit
+- react-rating-stars-component
+- classnames
