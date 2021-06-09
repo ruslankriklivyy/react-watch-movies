@@ -1,6 +1,6 @@
 ## WatchMovies!
 
-[Live demo](https://react-watch-movies-ruslankrilkivyy.vercel.app/)
+▶[Live demo](https://react-watch-movies-ruslankrilkivyy.vercel.app/)
 
 ![Header](https://github.com/ruslankriklivyy/react-watch-movies/blob/main/public/watchMovies.gif)
 
