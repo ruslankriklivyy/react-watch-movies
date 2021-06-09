@@ -12,3 +12,4 @@
 - Redux Toolkit
 - react-rating-stars-component
 - classnames
+- react-slick
